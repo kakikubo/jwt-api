@@ -23,7 +23,7 @@ WORKDIR ${HOME}
 # COPY コピー元(ホスト) コピー先(コンテナ)
 # コピー元(ホスト) ... Dockerfileがあるディレクトリ以下を指定(api) ../ NG
 # コピー先(コンテナ) ... 絶対パス or 相対パス(./ ... 今いる(カレント)ディレクトリ)
-COPY Gemfile* ${HOME}
+COPY Gemfile* ./
 
 # apk ... Alpine Linuxのコマンド
 # apk update = パッケージの最新リストを取得
