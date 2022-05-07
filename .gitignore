@@ -29,3 +29,5 @@
 /config/master.key
 # original
 .DS_Store
+/.ash_history
+/.irb_history
