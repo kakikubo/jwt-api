@@ -43,7 +43,7 @@ RUN apk update && \
     apk del build-dependencies
 
 # . ... Dockerfileがあるディレクトリすべてのファイル(サブディレクトリを含む)
-COPY . ${HOME}
+COPY . ./
 
 
 # -b ... バインド。プロセスを指定したip(0.0.0.0)アドレスに紐付け(バインド)する
