@@ -1,0 +1,96 @@
+name: Build
+
+#プルリクエスト作成時に実行(他にもpush時など設定できます)
+on: [ pull_request ]
+
+jobs:
+  cancel:
+    name: 'Cancel Previous Runs'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+  rspec_job:
+    #ubuntu環境で動かします
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14.2-alpine
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    #GitHub Actionsでサポートしているrubyのversionは2.6系以降です
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Ruby version
+        uses: ruby/setup-ruby@master
+        with:
+          ruby-version: 3.1.2
+
+      #MySQLをインストール
+      #- name: Install dependent libralies
+      #  run: sudo apt-get install libmysqlclient-dev
+
+      - name: Setup bundler
+        run: gem install bundler
+
+      - name: Cache gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+      #- name: Cache node modules
+      #  uses: actions/cache@v2
+      #  with:
+      #    path: node_modules
+      #    key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      #    restore-keys: |
+      #      ${{ runner.os }}-node-
+      - name: bundle install
+        run: |
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
+        working-directory: ./api
+      # - name: yarn install
+      #   run: yarn install --check-files
+      # - name: rubocop
+      #   run: bundle exec rubocop
+      - name: tmp cache clear
+        run: bundle exec rails tmp:cache:clear
+
+      - name: Setup Database
+        run: |
+          cp config/database.yml.github-actions config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+        working-directory: ./api
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+      # - name: Run RSpec
+      #   run: bundle exec rspec
+      #   env:
+      #     TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+      #     LANG: "ja_JP.UTF-8"
+      #     LC_ALL: "C.UTF-8"
+      #     LANGUAGE: "ja_JP.UTF-8"
+      #     RAILS_ENV: test
+      #     POSTGRES_USER: postgres
+      #     POSTGRES_PASSWORD: postgres
+      #   working-directory: ./api
+      # - name: Codecov
+      #   uses: codecov/codecov-action@v2.1.0
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     directory: coverage # このディレクトリに、テスティングツールによるカバレッジレポートファイルが出力される想定
