@@ -23,7 +23,7 @@ WORKDIR ${HOME}
 # COPY コピー元(ホスト) コピー先(コンテナ)
 # コピー元(ホスト) ... Dockerfileがあるディレクトリ以下を指定(api) ../ NG
 # コピー先(コンテナ) ... 絶対パス or 相対パス(./ ... 今いる(カレント)ディレクトリ)
-COPY Gemfile* ./
+COPY Gemfile* ${HOME}
 
 # apk ... Alpine Linuxのコマンド
 # apk update = パッケージの最新リストを取得
@@ -43,7 +43,8 @@ RUN apk update && \
     apk del build-dependencies
 
 # . ... Dockerfileがあるディレクトリすべてのファイル(サブディレクトリを含む)
-COPY . ./
+COPY . ${HOME}
+
 
 # -b ... バインド。プロセスを指定したip(0.0.0.0)アドレスに紐付け(バインド)する
 # CMD ["rails", "server", "-b", "0.0.0.0"]
