@@ -67,16 +67,16 @@ jobs:
       - name: tmp cache clear
         run: bundle exec rails tmp:cache:clear
 
-      # - name: Setup Database
-      #   run: |
-      #     cp config/database.yml.github-actions config/database.yml
-      #     bundle exec rake db:create
-      #     bundle exec rake db:schema:load
-      #   working-directory: ./api
-      #   env:
-      #     RAILS_ENV: test
-      #     POSTGRES_USER: postgres
-      #     POSTGRES_PASSWORD: postgres
+      - name: Setup Database
+        run: |
+          cp config/database.yml.github-actions config/database.yml
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+        working-directory: ./api
+        env:
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
 
       - name: Run RSpec
         run: bundle exec rspec
