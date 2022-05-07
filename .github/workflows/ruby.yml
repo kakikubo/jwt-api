@@ -67,28 +67,28 @@ jobs:
       - name: tmp cache clear
         run: bundle exec rails tmp:cache:clear
 
-      - name: Setup Database
-        run: |
-          cp config/database.yml.github-actions config/database.yml
-          bundle exec rake db:create
-          bundle exec rake db:schema:load
-        working-directory: ./api
-        env:
-          RAILS_ENV: test
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-
-      # - name: Run RSpec
-      #   run: bundle exec rspec
+      # - name: Setup Database
+      #   run: |
+      #     cp config/database.yml.github-actions config/database.yml
+      #     bundle exec rake db:create
+      #     bundle exec rake db:schema:load
+      #   working-directory: ./api
       #   env:
-      #     TZ: "/usr/share/zoneinfo/Asia/Tokyo"
-      #     LANG: "ja_JP.UTF-8"
-      #     LC_ALL: "C.UTF-8"
-      #     LANGUAGE: "ja_JP.UTF-8"
       #     RAILS_ENV: test
       #     POSTGRES_USER: postgres
       #     POSTGRES_PASSWORD: postgres
-      #   working-directory: ./api
+
+      - name: Run RSpec
+        run: bundle exec rspec
+        env:
+          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          LANG: "ja_JP.UTF-8"
+          LC_ALL: "C.UTF-8"
+          LANGUAGE: "ja_JP.UTF-8"
+          RAILS_ENV: test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+      # working-directory: ./api
       # - name: Codecov
       #   uses: codecov/codecov-action@v2.1.0
       #   with:
