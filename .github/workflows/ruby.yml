@@ -72,7 +72,7 @@ jobs:
           cp config/database.yml.github-actions config/database.yml
           bundle exec rake db:create
           bundle exec rake db:schema:load
-        working-directory: ./api
+        # working-directory: ./api
         env:
           RAILS_ENV: test
           POSTGRES_USER: postgres
