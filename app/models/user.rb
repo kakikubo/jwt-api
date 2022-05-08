@@ -27,6 +27,7 @@ class User < ApplicationRecord
                        length: { minimum: 8, allow_blank: true },
                        format: {
                          with: VALID_PASSWORD_REGEX,
+                         message: :invalid_password,
                          allow_blank: true
                        },
                        allow_nil: true   # nilの場合スキップ
