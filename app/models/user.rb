@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require 'validator/email_validator'
+
 # Userモデル
 class User < ApplicationRecord
+  before_validation :downcase_email
+
   # gem bcrypt
   # 1. passwordを暗号化する
   # 2. password_digest => password
@@ -18,6 +22,9 @@ class User < ApplicationRecord
                      maximum: 30, # 最大文字数
                      allow_blank: true # nil, 空白文字の場合スキップ
                    }
+
+  validates :email, presence: true, email: { allow_blank: true }
+
   # \A          => 文字列の先頭にマッチ
   # [\w\-]      => a-zA-Z0-9_-
   # +           => 1文字以上繰り返す
@@ -30,5 +37,28 @@ class User < ApplicationRecord
                          message: :invalid_password,
                          allow_blank: true
                        },
-                       allow_nil: true   # nilの場合スキップ
+                       allow_nil: true # nilの場合スキップ
+
+  ## methods
+  # class method  ###########################
+  class << self
+    # emailからアクティブなユーザーを返す
+    def find_by_activated(email)
+      find_by(email:, activated: true)
+    end
+  end
+  # class method end #########################
+
+  # 自分以外の同じemailのアクティブなユーザーがいる場合にtrueを返す
+  def email_activated?
+    users = User.where.not(id:)
+    users.find_by_activated(email).present?
+  end
+
+  private
+
+  # email小文字化
+  def downcase_email
+    email.downcase! if email
+  end
 end
