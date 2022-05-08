@@ -59,6 +59,6 @@ class User < ApplicationRecord
 
   # email小文字化
   def downcase_email
-    email.downcase! if email
+    email&.downcase!
   end
 end

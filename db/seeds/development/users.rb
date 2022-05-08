@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 10.times do |n|
   name = "user#{n}"
   email = "#{name}@example.com"
