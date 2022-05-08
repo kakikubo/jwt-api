@@ -55,3 +55,8 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+group :test do
+  # テスト結果色付け Doc: https://github.com/kern/minitest-reporters
+  gem 'minitest-reporters', '~> 1.1', '>= 1.1.11'
+end
