@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Userモデル
 class User < ApplicationRecord
   # gem bcrypt
   # 1. passwordを暗号化する

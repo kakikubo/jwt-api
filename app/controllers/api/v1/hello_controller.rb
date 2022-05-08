@@ -2,6 +2,7 @@
 
 module Api
   module V1
+    # Hello controller API v1
     class HelloController < ApplicationController
       def index
         render json: 'Hello'

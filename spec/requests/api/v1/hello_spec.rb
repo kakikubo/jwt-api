@@ -11,7 +11,7 @@ RSpec.describe 'Api::V1::Hellos', type: :request do
         expect(response).to have_http_status(:ok)
       end
       it 'response Hello' do
-        binding.break
+        # binding.break
         expect(response.body).to eq('Hello')
       end
     end
