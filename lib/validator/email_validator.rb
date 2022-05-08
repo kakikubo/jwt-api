@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Emailのバリデーションを行う
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     # text length
