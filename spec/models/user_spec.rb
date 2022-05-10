@@ -33,9 +33,9 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "emailのバリデーション" do
+  describe 'emailのバリデーション' do
     let(:user) { active_user }
-    it "入力必須" do
+    it '入力必須' do
       user = User.new(name: 'test', password: 'password')
       user.save
       required_msg = ['メールアドレスを入力してください']
@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     end
     it '文字数制限は255文字まで' do
       max = 255
-      domain = "@example.com"
+      domain = '@example.com'
       email = 'a' * (max + 1 - domain.length) + domain
       assert max < email.length
       user.email = email
