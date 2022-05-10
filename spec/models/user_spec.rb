@@ -127,6 +127,84 @@ RSpec.describe User, type: :model do
           end.to change(User, :count).by(0)
         end
       end
+      context 'アクティブユーザがいなくなった場合' do
+        let(:active_user) { User.create(name: 'test', email:, password: 'password') }
+        let(:user1) { User.create(name: 'test', email:, password: 'password') }
+        let(:user2) { User.create(name: 'test', email:, password: 'password') }
+        let(:user3) { User.create(name: 'test', email:, password: 'password') }
+        before do
+          active_user.destroy
+        end
+
+        it '同じemailアドレスが保存できるようになっている' do
+          expect do
+            user = User.new(name: 'test', email:, password: 'password')
+            user.save
+          end.to change(User, :count).by(1)
+        end
+        it 'アクティブユーザの一意性は保たれている' do
+          expect(user1.email).to eq(user2.email)
+          expect(user2.email).to eq(user3.email)
+          user3.activated = true
+          user3.save
+          expect(User.where(email:, activated: true).count).to eq(1)
+        end
+      end
+
+      context 'パスワードバリデーション' do
+        it '入力必須' do
+          user = User.new(name: 'test', email: 'test@example.com')
+          user.save
+          required_msg = ['パスワードを入力してください']
+          expect(user.errors.full_messages).to eq(required_msg)
+        end
+
+        it 'min文字以上' do
+          min = 8
+          user.password = 'a' * (min - 1)
+          user.save
+          minlength_msg = ['パスワードは8文字以上で入力してください']
+          expect(user.errors.full_messages).to eq(minlength_msg)
+        end
+
+        it 'max文字以下' do
+          max = 72
+          user.password = 'a' * (max + 1)
+          user.save
+          maxlength_msg = ['パスワードは72文字以内で入力してください']
+          expect(user.errors.full_messages).to eq(maxlength_msg)
+        end
+
+        it '書式チェック VALID_PASSWORD_REGEX = /\A[\w\-]+\z/' do
+          ok_passwords = %w[
+            pass---word
+            ________
+            12341234
+            ____pass
+            pass----
+            PASSWORD
+          ]
+          ok_passwords.each do |pass|
+            user.password = pass
+            expect(user).to be_valid
+          end
+
+          ng_passwords = %w[
+            pass/word
+            pass.word
+            |~=?+"a"
+            １２３４５６７８
+            ＡＢＣＤＥＦＧＨ
+            password@
+          ]
+          format_msg = ['パスワードは半角英数字•ﾊｲﾌﾝ•ｱﾝﾀﾞｰﾊﾞｰが使えます']
+          ng_passwords.each do |pass|
+            user.password = pass
+            user.save
+            expect(user.errors.full_messages).to eq(format_msg)
+          end
+        end
+      end
     end
   end
 end
