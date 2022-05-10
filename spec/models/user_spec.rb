@@ -49,7 +49,7 @@ RSpec.describe User, type: :model do
       assert max < email.length
       user.email = email
       user.save
-      maxlength_msg = ['メールアドレスは255文字以内で入力してください']
+      maxlength_msg = ["メールアドレスは#{max}文字以内で入力してください"]
       expect(user.errors.full_messages).to eq(maxlength_msg)
     end
   end
