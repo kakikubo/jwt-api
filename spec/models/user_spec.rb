@@ -98,6 +98,36 @@ RSpec.describe User, type: :model do
       user.save
       expect(user.email).to eq('user@example.com')
     end
+
+    describe 'アクティブユーザの一意性テスト' do
+      let(:email) { 'test@example.com' }
+      let(:user_count) { 3 }
+      context 'アクティブユーザがいない場合' do
+        it '何度でも同じemailで登録が可能' do
+          expect do
+            user_count.times do |_n|
+              User.create(name: 'test', email:, password: 'password')
+            end
+          end.to change(User, :count).by(3)
+        end
+      end
+      context 'アクティブユーザがいる場合' do
+        let(:active_user) { User.create(name: 'test', email:, password: 'password') }
+        before do
+          active_user.update!(activated: true)
+          assert active_user.activated
+        end
+
+        it '同じemailでバリデーションエラーを吐いているか。ユーザ数に変化がないか' do
+          expect do
+            user = User.new(name: 'test', email:, password: 'password')
+            user.save
+            uniqueness_msg = ['メールアドレスはすでに存在します']
+            expect(user.errors.full_messages).to eq(uniqueness_msg)
+          end.to change(User, :count).by(0)
+        end
+      end
+    end
   end
 end
 # rubocop:enable Metrics/BlockLength
