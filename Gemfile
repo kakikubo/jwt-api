@@ -43,6 +43,8 @@ gem 'rack-cors'
 gem 'hirb', '~> 0.7.3'
 # Hirbの文字列補正を行う(多言語対応版)
 gem 'hirb-unicode-steakknife', '~> 0.0.9'
+# jwt Doc: https://rubygems.org/gems/jwt
+gem 'jwt', '~> 2.3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
