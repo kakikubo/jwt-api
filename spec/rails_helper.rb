@@ -36,6 +36,9 @@ RSpec.configure do |config|
   config.before(:suite) do
     load Rails.root.join('db', 'seeds.rb')
   end
+  # travel_to などの便利ヘルパーを利用できるようにする
+  config.include ActiveSupport::Testing::TimeHelpers
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ユーザ認証モジュール
 module UserAuth
   # access tokenの有効期限
   mattr_accessor :access_token_lifetime
