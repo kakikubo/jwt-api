@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ユーザ認証サービス
 module UserAuthenticateService
   # 認証（トークンの持ち主を判定）
   # 認証済みのユーザーが居ればtrue、存在しない場合は401を返す
@@ -32,7 +35,7 @@ module UserAuthenticateService
   def current_user
     return nil unless token_from_request_headers
 
-    @_current_user ||= fetch_user_from_access_token
+    @_current_user ||= fetch_user_from_access_token # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   # 認証エラー
