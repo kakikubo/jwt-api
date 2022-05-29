@@ -2,13 +2,14 @@
 
 require 'rails_helper'
 
+# FIXME: もともと api_v1_users_path が定義されていた時の名残り。削除しても問題なさそう。
 RSpec.describe 'Api::V1::Users', type: :request do
   describe 'GET /index' do
     before { get api_v1_users_path }
-    it '200' do
+    xit '200' do
       expect(response).to have_http_status(:ok)
     end
-    it 'response json' do
+    xit 'response json' do
       jsons = JSON.parse(response.body)
       json1 = jsons.first
       expect(json1['id']).to eq(1)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # セッションサービス
 module UserSessionizeService
   # セッションユーザーが居ればtrue、存在しない場合は401を返す
@@ -37,7 +39,7 @@ module UserSessionizeService
   def session_user
     return nil unless token_from_cookies
 
-    @_session_user ||= fetch_user_from_refresh_token
+    @_session_user ||= fetch_user_from_refresh_token # rubocop:disable Naming/MemoizedInstanceVariableName
   end
 
   # jtiエラーの処理
