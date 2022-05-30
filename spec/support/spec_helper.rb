@@ -30,4 +30,9 @@ module SpecHelpers
   def res_body
     JSON.parse(@response.body)
   end
+
+  # tokenのリフレッシュを行うapi
+  def refresh_api
+    post api('/auth_token/refresh'), xhr: true
+  end
 end
