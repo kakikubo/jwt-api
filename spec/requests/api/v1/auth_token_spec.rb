@@ -102,37 +102,38 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   end
 
   describe '無効なログイン' do
-    context 'invalid_login_from_create_action' do
-      let(:pass) { 'password' }
+    let(:pass) { 'password' }
+    context '不正なユーザの場合' do
       let(:invalid_params) { { auth: { email: user.email, password: pass + 'a' } } }
 
       before { login invalid_params }
 
-      it '不正なユーザの場合' do
+      it '404が返される' do
         response_check_of_invalid_request 404
       end
     end
+    context 'アクティブユーザでない場合' do
+      let(:inactive_user) { User.create(name: 'a', email: 'a@a.a', password: pass) }
+      let(:invalid_params) { { auth: { email: inactive_user.email, password: pass } } }
+
+      before { login invalid_params }
+
+      it 'アクティブにはならない' do
+        expect(inactive_user.activated).to be_falsy
+        response_check_of_invalid_request 404
+      end
+    end
+
+    context 'Ajax通信でない場合' do
+      before do
+        post api('/auth_token'), xhr: false, params:
+      end
+
+      it '通信が拒否される' do
+        response_check_of_invalid_request 403, 'Forbidden'
+      end
+    end
   end
-  # # 無効なログイン
-  # test 'invalid_login_from_create_action' do
-  #   # 不正なユーザーの場合
-  #   pass = 'password'
-  #   invalid_params = { auth: { email: @user.email, password: pass + 'a' } }
-  #   login(invalid_params)
-  #   response_check_of_invalid_request 404
-
-  #   # アクティブユーザーでない場合
-  #   inactive_user = User.create(name: 'a', email: 'a@a.a', password: pass)
-  #   invalid_params = { auth: { email: inactive_user.email, password: pass } }
-  #   assert_not inactive_user.activated
-  #   login(invalid_params)
-  #   response_check_of_invalid_request 404
-
-  #   # Ajax通���ではない場合
-  #   post api('/auth_token'), xhr: false, params: @params
-  #   response_check_of_invalid_request 403, 'Forbidden'
-  # end
-
   # # 有効なリフレッシュ
   # test 'valid_refresh_from_refresh_action' do
   #   # 有効なログイン
