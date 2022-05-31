@@ -134,43 +134,60 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
       end
     end
   end
-  # # 有効なリフレッシュ
-  # test 'valid_refresh_from_refresh_action' do
-  #   # 有効なログイン
-  #   login(@params)
-  #   assert_response 200
-  #   @user.reload
-  #   old_access_token = res_body[@access_token_key]
-  #   old_refresh_token = cookies[@session_key]
-  #   old_user_jti = @user.refresh_jti
+  describe '有効なリフレッシュ' do
+    context '有効なログイン' do
+      before do
+        login params
+        user.reload
+        @old_access_token = res_body[access_token_key]
+        @old_refresh_token = cookies[session_key]
+        @old_user_jti = user.refresh_jti
+      end
 
-  #   # nilでないか
-  #   assert_not_nil old_access_token
-  #   assert_not_nil old_refresh_token
-  #   assert_not_nil old_user_jti
+      it '正常なレスポンスが返る' do
+        expect(response).to have_http_status(:ok)
+      end
+      it 'nilでないか' do
+        expect(@old_access_token).not_to eq nil
+        expect(@old_refresh_token).not_to eq nil
+        expect(@old_user_jti).not_to eq nil
+      end
 
-  #   # refreshアクションにアクセス
-  #   refresh_api
-  #   assert_response 200
-  #   @user.reload
-  #   new_access_token = res_body[@access_token_key]
-  #   new_refresh_token = cookies[@session_key]
-  #   new_user_jti = @user.refresh_jti
+      context 'refreshアクションにアクセス' do
+        let(:payload) { User.decode_refresh_token(@new_refresh_token).payload }
+        before do
+          refresh_api
+          user.reload
+          @new_access_token = res_body[access_token_key]
+          @new_refresh_token = cookies[session_key]
+          @new_user_jti = user.refresh_jti
+        end
 
-  #   # nilでないか
-  #   assert_not_nil new_access_token
-  #   assert_not_nil new_refresh_token
-  #   assert_not_nil new_user_jti
+        it '正常なレスポンスが返る' do
+          expect(response).to have_http_status(:ok)
+        end
 
-  #   # tokenとjtiが新しく発行されているか
-  #   assert_not_equal old_access_token, new_access_token
-  #   assert_not_equal old_refresh_token, new_refresh_token
-  #   assert_not_equal old_user_jti, new_user_jti
+        it 'nilでないか' do
+          expect(@new_access_token).not_to eq nil
+          expect(@new_refresh_token).not_to eq nil
+          expect(@new_user_jti).not_to eq nil
+        end
 
-  #   # user.refresh_jtiは最新のjtiと一致しているか
-  #   payload = User.decode_refresh_token(new_refresh_token).payload
-  #   assert_equal payload['jti'], new_user_jti
-  # end
+        it 'tokenとjtiが新しく発行されているか' do
+          expect(@old_access_token).not_to eq @new_access_token
+          expect(@old_refresh_token).not_to eq @new_refresh_token
+          expect(@old_user_jti).not_to eq @new_user_jti
+        end
+
+        it 'user.refresh_jtiは最新のjtiと一致しているか' do
+          expect(payload['jti']).to eq @new_user_jti
+        end
+      end
+    end
+  end
+
+  describe '無効なリフレッシュ' do
+  end
 
   # # 無効なリフレッシュ
   # test 'invalid_refresh_from_refresh_action' do
