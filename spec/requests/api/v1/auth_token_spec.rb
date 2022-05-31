@@ -187,6 +187,45 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   end
 
   describe '無効なリフレッシュ' do
+    before do
+      refresh_api
+    end
+
+    it 'refresh_tokenが存在しない場合はアクセスできないか' do
+      response_check_of_invalid_request 401
+    end
+
+    context 'ユーザが2回のログインを行った場合' do
+      before do
+        login params
+        @old_refresh_token = cookies[session_key]
+        login params
+        @new_refresh_token = cookies[session_key]
+        cookies[session_key] = @old_refresh_token # 1つ目のブラウザの方で操作をする
+      end
+      it '1つ目のブラウザの値が入っていること' do
+        expect(cookies[session_key]).not_to be_blank
+      end
+      context '1つ目のブラウザ(古いrefresh_token)でアクセスする' do
+        before { refresh_api }
+        it '1つ目のブラウザ(古いrefresh_token)でアクセスするとエラーを吐いているか' do
+          expect(response).to have_http_status(:unauthorized)
+        end
+        it 'クッキーが削除されていること' do
+          expect(cookies[session_key]).to be_blank
+        end
+        it 'jtiエラーはカスタムメッセージを吐いているか' do
+          expect(res_body['error']).to eq('Invalid jti for refresh token')
+        end
+        it '有効期限後はアクセスできないか' do
+          travel_to(refresh_lifetime.from_now) do
+            refresh_api
+            expect(response).to have_http_status(:unauthorized)
+            expect(response.body).not_to be_present
+          end
+        end
+      end
+    end
   end
 
   # # 無効なリフレッシュ
