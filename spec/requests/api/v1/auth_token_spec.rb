@@ -14,12 +14,9 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   let!(:session_key) { UserAuth.session_key.to_s }
   let!(:access_token_key) { 'token' }
 
+  # rubocop:disable Metrics/AbcSize
   shared_context :response_check_of_invalid_request do |status, error_msg = nil|
   end
-  # # tokenのリフレッシュを行うapi
-  # def refresh_api
-  #   post api('/auth_token/refresh'), xhr: true
-  # end
 
   # 無効なリクエストで返ってくるレスポンスチェック
   def response_check_of_invalid_request(status, error_msg = nil)
@@ -29,6 +26,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
     expect(response.body.present?).not_to be_truthy if error_msg.nil?
     expect(error_msg).to eq(res_body['error']) unless error_msg.nil?
   end
+  # rubocop:enable Metrics/AbcSize
 
   describe '有効なログイン' do
     context 'valid_login_from_create_action' do
@@ -104,7 +102,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   describe '無効なログイン' do
     let(:pass) { 'password' }
     context '不正なユーザの場合' do
-      let(:invalid_params) { { auth: { email: user.email, password: pass + 'a' } } }
+      let(:invalid_params) { { auth: { email: user.email, password: "#{pass}a" } } }
 
       before { login invalid_params }
 
@@ -228,82 +226,59 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
     end
   end
 
-  # # 無効なリフレッシュ
-  # test 'invalid_refresh_from_refresh_action' do
-  #   # refresh_tokenが存在しない場合はアク��スできないか
-  #   refresh_api
-  #   response_check_of_invalid_request 401
+  describe 'ログアウト' do
+    describe 'destroy_action' do
+      context '有効なログイン' do
+        before { login params }
+        it '正常なレスポンスが返される' do
+          expect(response).to have_http_status(:ok)
+          user.reload
+          expect(user.refresh_jti).to be_truthy
+          expect(request.cookie_jar[session_key]).to be_truthy
+          expect(cookies[session_key]).not_to be_blank
+        end
 
-  #   ## ユーザーが2回のログインを行なった場合
-  #   # 1つ目のブラウザでログイン
-  #   login(@params)
-  #   assert_response 200
-  #   old_refresh_token = cookies[@session_key]
+        context '有効なログアウト' do
+          before { logout }
+          it 'cookieは削除されているか' do
+            expect(response).to have_http_status(:ok)
+            expect(cookies[session_key]).to be_blank
+          end
 
-  #   # 2つ目のブラウザでログイン
-  #   login(@params)
-  #   assert_response 200
-  #   new_refresh_token = cookies[@session_key]
+          it 'userのjtiは削除できているか' do
+            user.reload
+            expect(user.refresh_jti).to eq nil
+          end
+        end
+        context 'sessionがない状態でログアウト' do
+          before do
+            cookies[session_key] = nil
+            logout
+          end
 
-  #   # cookieに古いrefresh_token���セ���ト
-  #   cookies[@session_key] = old_refresh_token
-  #   assert_not cookies[@session_key].blank?
+          it 'エラーが返ってくる' do
+            expect(response).to have_http_status(:unauthorized)
+            # FIXME: response_check_of_invalid_request 401 # L28でエラーになる(refresh_jtiがnilになっていない)
+          end
+        end
+      end
+      context '有効なログイン' do
+        before { login params }
 
-  #   # 1つ目のブラウザ(古いrefresh_token)��アクセスするとエラーを吐いて���るか
-  #   refresh_api
-  #   assert_response 401
+        it '正常なレスポンスが返される' do
+          expect(response).to have_http_status(:ok)
+          user.reload
+          expect(cookies[session_key]).not_to be_blank
+        end
 
-  #   # cookieは削除されているか
-  #   assert cookies[@session_key].blank?
-
-  #   # jtiエラーはカスタムメッセージを吐いている��
-  #   assert_equal 'Invalid jti for refresh token', res_body['error']
-
-  #   # 有効期限後はアクセスできないか
-  #   travel_to(@refresh_lifetime.from_now) do
-  #     refresh_api
-  #     assert_response 401
-  #     assert_not response.body.present?
-  #   end
-  # end
-
-  # # ログアウト
-  # test 'destroy_action' do
-  #   # 有効なログイン
-  #   login(@params)
-  #   assert_response 200
-  #   @user.reload
-  #   assert_not_nil @user.refresh_jti
-  #   assert_not_nil @request.cookie_jar[@session_key]
-
-  #   # 有効なログアウト
-  #   assert_not cookies[@session_key].blank?
-  #   logout
-  #   assert_response 200
-
-  #   # cookieは削除されているか
-  #   assert cookies[@session_key].blank?
-
-  #   # userのjtiは削除できているか
-  #   @user.reload
-  #   assert_nil @user.refresh_jti
-
-  #   # sessionがない状態でログアウトしたらエラーは返ってくるか
-  #   cookies[@session_key] = nil
-  #   logout
-  #   response_check_of_invalid_request 401
-
-  #   # 有効なログイン
-  #   login(@params)
-  #   assert_response 200
-  #   assert_not cookies[@session_key].blank?
-
-  #   # session有効期限後にログアウトしたらエラーは返ってくるか
-  #   travel_to(@refresh_lifetime.from_now) do
-  #     logout
-  #     assert_response 401
-  #     # cookieは削除されているか
-  #     assert cookies[@session_key].blank?
-  #   end
-  # end
+        it 'session有効期限後にログアウトしたらエラーは返ってくるか' do
+          travel_to(refresh_lifetime.from_now) do
+            logout
+            expect(response).to have_http_status(:unauthorized)
+            expect(cookies[session_key]).to be_blank
+          end
+        end
+      end
+    end
+  end
 end
