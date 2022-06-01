@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe 'AccessTokens', type: :request do
   let!(:user) { active_user }
   let!(:encode) { UserAuth::AccessToken.new(user_id: user.id) }
@@ -124,7 +123,6 @@ RSpec.describe 'AccessTokens', type: :request do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
 # require 'test_helper'
 
 # class AccessTokenTest < ActionDispatch::IntegrationTest

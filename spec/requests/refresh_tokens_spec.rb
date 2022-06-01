@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe 'RefreshTokens', type: :request do
   let!(:user) { active_user }
   let!(:encode) { UserAuth::RefreshToken.new(user_id: user.id) }
@@ -71,8 +70,6 @@ RSpec.describe 'RefreshTokens', type: :request do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
-
 # # api/test/integration/refresh_token_test.rb
 # require 'test_helper'
 
