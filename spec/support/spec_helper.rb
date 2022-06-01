@@ -35,4 +35,9 @@ module SpecHelpers
   def refresh_api
     post api('/auth_token/refresh'), xhr: true
   end
+
+  # プロジェクトapi
+  def projects_api(token)
+    get api('/projects'), xhr: true, headers: auth(token)
+  end
 end

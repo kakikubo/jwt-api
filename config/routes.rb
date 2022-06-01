@@ -12,6 +12,8 @@ Rails.application.routes.draw do
         post :refresh, on: :collection
         delete :destroy, on: :collection
       end
+      # projects
+      resources :projects, only: [:index]
     end
   end
 end
