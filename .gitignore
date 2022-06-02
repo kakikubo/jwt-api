@@ -33,3 +33,12 @@
 /.irb_history
 /.rdbg_history
 /.cache
+
+/config/credentials/test.key
+
+/config/credentials/development.key
+
+/config/credentials/staging.key
+
+/config/credentials/production.key
+.viminfo

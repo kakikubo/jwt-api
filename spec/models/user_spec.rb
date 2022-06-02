@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.describe User, type: :model do
   describe 'バリデーション' do
     let(:user) { active_user }
@@ -208,4 +207,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

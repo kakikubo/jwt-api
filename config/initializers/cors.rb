@@ -13,6 +13,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource '*',
              headers: :any,
-             methods: %i[get post put patch delete options head]
+             methods: %i[get post put patch delete options head],
+             credentials: true
+    # Nuxtからは `XMLHttpRequest.withCredentials: true`が送信される
+    # credentials: trueを設定する事で `Access-Control-Allow-Credentials: true` をセットしてNuxtへ返す
   end
 end

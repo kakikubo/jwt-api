@@ -88,6 +88,8 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          BASE_URL: 'http://localhost:3000'
       # working-directory: ./api
       # - name: Codecov
       #   uses: codecov/codecov-action@v2.1.0
