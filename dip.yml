@@ -1,0 +1,70 @@
+version: '7.3'
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  sh:
+    description: Open the Bourne shell in app's container
+    service: api
+    command: sh 
+    compose:
+      run_options: [no-deps]
+
+  bundle:
+    description: Run Bundler commands
+    service: api
+    command: bundle
+
+  rake:
+    description: Run Rake commands
+    service: api
+    command: bundle exec rake
+
+  rspec:
+    description: Run Rspec commands
+    service: api
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rspec
+
+  yarn:
+    description: Run yarn
+    service: api
+    command: yarn
+
+  rubocop:
+    description: Run rubocop
+    service: api
+    command: bundle exec rubocop
+
+  brakeman:
+    description: Run brakeman
+    service: api
+    command: bundle exec brakeman
+
+  rails:
+    description: Run Rails commands
+    service: api
+    command: bin/rails
+    subcommands:
+      s:
+        description: Run Rails server at http://jwt-rails.lvh.me:33000
+        service: api
+        compose:
+          run_options: [service-ports]
+
+  worker:
+    description: Run worker
+    service: worker
+
+  edit_cred:
+    description: Edit credentials.yml.enc
+    service: rails_cred
+
+provision:
+  - dip compose down --volumes
+  - dip compose up -d db
+  - dip sh -c ./bin/setup
+  - dip rails db:migrate:reset db:seed
