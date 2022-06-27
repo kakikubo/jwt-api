@@ -6,10 +6,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.2', '>= 7.0.2.4'
+gem 'rails', '~> 7.0.3'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 1.1'
+gem 'pg', '~> 1.4'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
@@ -26,7 +26,7 @@ gem 'puma', '~> 5.0'
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 # パスワードを暗号化する
-gem 'bcrypt', '~> 3.1', '>= 3.1.17'
+gem 'bcrypt', '~> 3.1'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -44,7 +44,7 @@ gem 'hirb', '~> 0.7.3'
 # Hirbの文字列補正を行う(多言語対応版)
 gem 'hirb-unicode-steakknife', '~> 0.0.9'
 # jwt Doc: https://rubygems.org/gems/jwt
-gem 'jwt', '~> 2.3'
+gem 'jwt', '~> 2.4'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
