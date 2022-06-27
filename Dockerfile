@@ -5,8 +5,8 @@ FROM ruby:3.1.2-alpine
 # Dockerfile内で使用する変数を定義
 # appが入る予定
 ARG WORKDIR
-ARG RUNTIME_PACKAGES="nodejs tzdata postgresql-dev postgresql git"
-ARG DEV_PACKAGES="build-base curl-dev"
+ARG RUNTIME_PACKAGES="build-base nodejs tzdata postgresql-dev postgresql git"
+ARG DEV_PACKAGES="curl-dev"
 
 # 環境変数を定義(Dockerfile, コンテナで参照可能)
 # Rails ENV["TZ"] => Asia/Tokyo
