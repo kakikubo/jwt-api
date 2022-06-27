@@ -76,7 +76,7 @@ RSpec.describe 'AccessTokens', type: :request do
         end
       end
       it 'トークンが書き換えられた場合エラーを吐いているか' do
-        expect { UserAuth::AccessToken.new(token: "#{encode.token}aaaaaaa") }.to raise_error(JWT::VerificationError)
+        expect { UserAuth::AccessToken.new(token: "#{encode.token}aaaaaaa") }.to raise_error(JWT::DecodeError)
       end
       it 'issuerが改ざんされたtokenはエラーを吐いているか' do
         invalid_token = UserAuth::AccessToken.new(payload: { iss: 'invalid' }).token
