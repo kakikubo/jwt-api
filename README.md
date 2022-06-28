@@ -16,21 +16,61 @@ pie title 進捗率
 
 - [Vuetify — A Material Design Framework for Vue.js](https://vuetifyjs.com/ja/)
 
-## 設定
+## ローカル環境でのセットアップ
+### 設定
 
-以下の通り設定ファイルを用意しておく。
+Rails側は以下の通り設定ファイルを用意しておく。
 
 ```zsh
-teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails % cat .env
+teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % cat .env
 # commons
 WORKDIR=app
-API_PORT=3000
+API_PORT=33000
 FRONT_PORT=8080
+API_DOMAIN=localhost:3000
 
 # db
 POSTGRES_PASSWORD=password
-teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails %
+
+RAILS_MASTER_KEY=3997bc68fe5b50044517266c993b7876
 ```
+
+Nuxt側は以下の通りアプリケーション名だけ指定する
+```
+teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api/front % cat .env
+APP_NAME=BizPlanner
+```
+
+### Rails側の設定
+
+```
+dip provision
+```
+
+### Nuxt側の設定
+
+```
+cd front
+yarn install
+```
+
+### 起動してみる
+
+terminal1
+```
+dip rails s
+```
+
+terminal2
+
+```
+cd front
+yarn dev
+```
+
+上記をもって http://localhost:3000 にアクセスすれば、トップページに遷移する。
+
+
 
 ## DB
 
