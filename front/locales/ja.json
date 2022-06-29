@@ -1,0 +1,38 @@
+{
+  "menus": {
+    "about": "サイトについて",
+    "products": "製品",
+    "price": "価格",
+    "contact": "お問い合わせ",
+    "company": "会社情報",
+    "payments": {
+      "month": "月払い",
+      "year": "年払い"
+    }
+  },
+  "pages": {
+    "signup": "会員登録",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "account": {
+      "settings": "アカウント設定",
+      "password": "パスワード変更"
+    },
+    "project": {
+      "id": {
+        "dashboard": "ダッシュボード",
+        "layouts": "レイアウト",
+        "pages": "ページ",
+        "components": "コンポーネント",
+        "settings": "設定",
+        "help": "ヘルプ"
+      }
+    }
+  },
+  "error": {
+    "Unauthorized": "認証に失敗しました",
+    "Forbidden": "アクセスが拒否されました",
+    "This page could not be found": "ページが見つかりません",
+    "Network Error": "ネットワークエラーが発生しました"
+  }
+}
