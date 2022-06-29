@@ -1,7 +1,6 @@
 {
-    "title": {
-      "signup": "signup",
-      "login": "login"
-    }
+  "title": {
+    "signup": "signup",
+    "login": "login"
   }
-  
+}
