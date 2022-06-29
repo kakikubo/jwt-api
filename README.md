@@ -16,6 +16,12 @@ pie title 進捗率
 
 - [Vuetify — A Material Design Framework for Vue.js](https://vuetifyjs.com/ja/)
 
+## 本番環境での動作確認
+
+herokuはメンテナンスモードにしているので、それを解除した上で https://u.fitsplus.jp へ移動
+```zsh
+teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku maintenance:off
+```
 ## ローカル環境でのセットアップ
 ### 設定
 
@@ -668,8 +674,8 @@ lax
 - [x] herokuのプランをfreeプランに戻す
 - [x] herokuをメンテナンスモードにしておく
 - [ ] herokuでIP制限をかける
-- [ ] frontをVercelに格納する
-- [ ] apiの中に `jwt-rails`と`jwt-front`を格納する
+- [x] frontをVercelに格納する
+- [x] apiの中に `jwt-rails`と`jwt-front`を格納する
 - [ ] apiをECSで扱えるようにする。
 
 ## Document
