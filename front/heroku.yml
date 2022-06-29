@@ -1,0 +1,12 @@
+setup:
+  config:
+    NODE_ENV: production
+build:
+  docker:
+    web: Dockerfile
+  config:
+    WORKDIR: app
+    API_URL: "https://api.u.fitsplus.jp"
+    # API_URL: "https://jwt-v1-api.herokuapp.com"
+run:
+  web: yarn run start
