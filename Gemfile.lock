@@ -69,7 +69,7 @@ GEM
     ansi (1.5.0)
     ast (2.4.2)
     bcrypt (3.1.18)
-    bootsnap (1.12.0)
+    bootsnap (1.13.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.1.10)
@@ -108,7 +108,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    msgpack (1.5.2)
+    msgpack (1.5.4)
     net-imap (0.2.3)
       digest
       net-protocol
