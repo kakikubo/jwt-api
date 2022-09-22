@@ -6,13 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.3'
+gem 'rails', '~> 7.0.4'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.4'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 5.0'
+gem 'puma', '~> 5.6'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -44,7 +44,7 @@ gem 'hirb', '~> 0.7.3'
 # Hirbの文字列補正を行う(多言語対応版)
 gem 'hirb-unicode-steakknife', '~> 0.0.9'
 # jwt Doc: https://rubygems.org/gems/jwt
-gem 'jwt', '~> 2.4'
+gem 'jwt', '~> 2.5'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
