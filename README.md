@@ -4,6 +4,7 @@
 pie title 進捗率
     "Done" : 102
 ```
+
 🎉
 
 動かして身につく。RailsAPI と Nuxt.js で作る JWT（JSONWebToken）ログイン認証【22 時間超解説】
@@ -18,14 +19,17 @@ pie title 進捗率
 
 ## 本番環境での動作確認
 
-herokuはメンテナンスモードにしているので、それを解除した上で https://u.fitsplus.jp へ移動
+heroku はメンテナンスモードにしているので、それを解除した上で <https://u.fitsplus.jp> へ移動
+
 ```zsh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku maintenance:off
 ```
+
 ## ローカル環境でのセットアップ
+
 ### 設定
 
-Rails側は以下の通り設定ファイルを用意しておく。
+Rails 側は以下の通り設定ファイルを用意しておく。
 
 ```zsh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % cat .env
@@ -41,21 +45,22 @@ POSTGRES_PASSWORD=password
 RAILS_MASTER_KEY=3997bc68fe5b50044517266c993b7876
 ```
 
-Nuxt側は以下の通りアプリケーション名だけ指定する
+Nuxt 側は以下の通りアプリケーション名だけ指定する
+
 ```
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api/front % cat .env
 APP_NAME=BizPlanner
 ```
 
-### Rails側の設定
+### Rails 側の設定
 
-```
+```sh
 dip provision
 ```
 
-### Nuxt側の設定
+### Nuxt 側の設定
 
-```
+```sh
 cd front
 yarn install
 ```
@@ -63,33 +68,32 @@ yarn install
 ### 起動してみる
 
 terminal1
-```
+
+```sh
 dip rails s
 ```
 
 terminal2
 
-```
+```sh
 cd front
 yarn dev
 ```
 
 上記をもって http://localhost:3000 にアクセスすれば、トップページに遷移する。
 
-
-
 ## DB
 
 for heroku
 
-```
+```sh
 heroku run rails db:migrate
 heroku run rails db:seed
 ```
 
 ## hello 　 API
 
-```
+```sh
 docker-compose up
 ```
 
@@ -101,7 +105,7 @@ http://localhost:8080/
 
 ## heroku 関連
 
-```
+```sh
 heroku login
 heroku update beta
 heroku plugins:install @heroku-cli/plugin-manifest
@@ -110,21 +114,21 @@ heroku plugins
 
 元に戻すには(まだ実行しない)
 
-```
+```sh
 heroku update stable
 heroku plugins:remove manifest
 ```
 
 ### プロジェクト作成
 
-```
+```sh
 heroku create jwt-v1-api --manifest
 heroku open
 ```
 
 https://jwt-v1-api.herokuapp.com/
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % git remote -v
 heroku  https://git.heroku.com/jwt-v1-api.git (fetch)
 heroku  https://git.heroku.com/jwt-v1-api.git (push)
@@ -141,14 +145,14 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku stack
 
 ### master key の登録
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % pbcopy < config/master.key
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set RAILS_MASTER_KEY=****
 ```
 
 ### heroku 環境の確認
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku run rails db:migrate
 Running rails db:migrate on ⬢ jwt-v1-api... up, run.1968 (Free)
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku open /api/v1/hello
@@ -200,7 +204,7 @@ jwt-v1-api::DATABASE=> show timezone;
 
 ### heroku アプリケーションを作成
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/front % heroku create jwt-v1-front --manifest
 Reading heroku.yml manifest... done
 Creating ⬢ jwt-v1-front... done, stack is container
@@ -210,7 +214,7 @@ https://jwt-v1-front.herokuapp.com/ | https://git.heroku.com/jwt-v1-front.git
 
 ### heroku アプリケーションを push
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/front % git push heroku main
 Enumerating objects: 38, done.
 Counting objects: 100% (38/38), done.
@@ -218,7 +222,7 @@ Counting objects: 100% (38/38), done.
 
 ### Hirb をインストールして利用する
 
-```
+```sh
 irb(main):004:0> puts Hirb::Helpers::Table.render [[1,2], [2,3]]
 +---+---+
 | 0 | 1 |
@@ -272,7 +276,7 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/dietplus-server %
 
 ↓
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/dietplus-server % time dip bundle exec rspec spec/requests/kenpo/events_spec.rb
 [+] Running 2/0
  ⠿ Container dietplus-server-db-1     Running                                                                                                                                                0.0s
@@ -290,7 +294,7 @@ dip bundle exec rspec spec/requests/kenpo/events_spec.rb  0.27s user 0.19s syste
 
 ### heroku での環境変数のセット
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/front % heroku config:set APP_NAME=BizPlanner
 Setting APP_NAME and restarting ⬢ jwt-v1-front... done, v8
 APP_NAME: BizPlanner
@@ -302,7 +306,7 @@ NODE_ENV: production
 
 BASE_URL を指定した時の例
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set BASE_URL=https://jwt-v1-api.herokuapp.com
 Setting BASE_URL and restarting ⬢ jwt-v1-api... done, v17
 BASE_URL: https://jwt-v1-api.herokuapp.com
@@ -332,7 +336,7 @@ JWT の 3 つのメリット
 デコードすると以下の情報が入っている。
 構造は次の通り
 
-```
+```text
 <ヘッダー>.<ペイロード>.<署名>
 ```
 
@@ -363,7 +367,7 @@ JWT の 3 つのメリット
 
 integration テストを追加しようとすると、rspec の場合は requests spec になる
 
-```
+```sh
 docker-compose run --rm api rails g integration_test RefreshToken
 ```
 
@@ -371,13 +375,13 @@ docker-compose run --rm api rails g integration_test RefreshToken
 
 アクセストークンを簡単に得る方法
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails % docker-compose run --rm api rails r 'puts User.last.to_access_token' | pbcopy
 ```
 
 ### curl コマンドでログイン認証のテスト
 
-```
+```sh
 curl -X POST http://localhost:3000/api/v1/auth_token \
 -H "X-Requested-With: XMLHttpRequest" \
 -H "Content-Type: application/json" \
@@ -386,7 +390,7 @@ curl -X POST http://localhost:3000/api/v1/auth_token \
 
 ### SameSite 属性の設定
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set COOKIES_SAME_SITE=none
 Setting COOKIES_SAME_SITE and restarting ⬢ jwt-v1-api... done, v18
 COOKIES_SAME_SITE: none
@@ -394,7 +398,7 @@ COOKIES_SAME_SITE: none
 
 ### db migrate がうまくいっているかどうかを確認する
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku run rails r 'puts User.column_names'
 Running rails r "puts User.column_names" on ⬢ jwt-v1-api... up, run.1995 (Free)
 id
@@ -412,7 +416,7 @@ refresh_jti
 
 以下の操作で refresh_token が User テーブルに挿入される事を確認できる
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku run rails r 'pp User.find(2)'
 Running rails r "pp User.find(2)" on ⬢ jwt-v1-api... up, run.2870 (Free)
 #<User:0x00007efef7f8b248
@@ -429,7 +433,7 @@ Running rails r "pp User.find(2)" on ⬢ jwt-v1-api... up, run.2870 (Free)
 
 認証を行ってみる(User.find(2) => user1@example.comのユーザである)
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get BASE_URL | pbcopy
 curl -X POST https://jwt-v1-api.herokuapp.com/api/v1/auth_token \
 -H "X-Requested-With: XMLHttpRequest" \
@@ -440,7 +444,7 @@ curl -X POST https://jwt-v1-api.herokuapp.com/api/v1/auth_token \
 
 再度ユーザ情報を見てみる。
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku run rails r 'pp User.find(2)'
 Running rails r "pp User.find(2)" on ⬢ jwt-v1-api... up, run.8481 (Free)
 #<User:0x00007fa586adac68
@@ -460,7 +464,7 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api %
 
 一連の操作をしたログは以下の通り確認できる
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku logs --tail
 2022-06-02T21:35:40.055012+00:00 app[web.1]: I, [2022-06-03T06:35:40.054921 #6]  INFO -- : [5f12ade5-86a9-4c41-b2a2-8956f24f59e8] Started POST "/api/v1/auth_token" for 150.249.253.216 at 2022-06-03 06:35:40 +0900
 2022-06-02T21:35:40.056407+00:00 app[web.1]: I, [2022-06-03T06:35:40.056335 #6]  INFO -- : [5f12ade5-86a9-4c41-b2a2-8956f24f59e8] Processing by Api::V1::AuthTokenController#create as */*
@@ -477,40 +481,37 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku logs --tail
 | リフレッシュトークン | セッション管理(アクセスを発行)           | Cookie                     | 24 時間  | ユーザーテーブルの jti を削除 |
 | アクセストークン     | リソースの保護(本人認証とコンテンツ保護) | メモリ・リクエストヘッダー | 30 分    | -                             |
 
-
 ## フロントエンドのログイン判定
 
-vuex のuserが存在する && auth.expiresが有効期限内
+vuex の user が存在する && auth.expires が有効期限内
 ↓
 loggedIn: true
 
-|vuex のuser| expires | access token| refresh token | logged in| redirect|
-| -- | -- | --- | -- | -- | -- |
-| 存在する| 期限内 | - | - | true | - |
-| 存在する | 期限切れ | 更新処理(サイレントリフレッシュ) | 有効 | true | - |
-| 存在する | 期限切れ | 更新処理(サイレントリフレッシュ) | 無効 | false | 「セッション切れ」 |
-| 存在しない | - | - | - | false | 「ログインして」 |
-
+| vuex の user | expires  | access token                     | refresh token | logged in | redirect           |
+| ------------ | -------- | -------------------------------- | ------------- | --------- | ------------------ |
+| 存在する     | 期限内   | -                                | -             | true      | -                  |
+| 存在する     | 期限切れ | 更新処理(サイレントリフレッシュ) | 有効          | true      | -                  |
+| 存在する     | 期限切れ | 更新処理(サイレントリフレッシュ) | 無効          | false     | 「セッション切れ」 |
+| 存在しない   | -        | -                                | -             | false     | 「ログインして」   |
 
 ## パソコンがスリープ状態になってもサイレントリフレッシュできるようにするには
 
 <https://stackoverflow.com/questions/6346849/what-happens-to-settimeout-when-the-computer-goes-to-sleep>
 
+## SameSite 属性問題に対処する
 
-## SameSite属性問題に対処する
-
-Safari ではきちんとSameSite属性問題を回避しないと、クッキーに値が保存されない等の問題が起こる。
-この為、heroku側に本番設定をほどこしてあげる必要がある。
+Safari ではきちんと SameSite 属性問題を回避しないと、クッキーに値が保存されない等の問題が起こる。
+この為、heroku 側に本番設定をほどこしてあげる必要がある。
 
 Safari でリロードするとログアウトする
 ↓
-原因: refresh_tokenがCookieに保存されていない
+原因: refresh_token が Cookie に保存されていない
 
-Safari サードパーティのCookieを拒否する仕様の為
-Chrome 2023年の後半までに上記仕様となる
+Safari サードパーティの Cookie を拒否する仕様の為
+Chrome 2023 年の後半までに上記仕様となる
 
 ↓
-同一サイトとみなされればCookieは拒否されない
+同一サイトとみなされれば Cookie は拒否されない
 ↓
 同じドメインのサブドメイン同士の例
 
@@ -521,21 +522,19 @@ Chrome 2023年の後半までに上記仕様となる
 
 のようになっていれば問題ない
 
-
-
-* 現状
-  * Nuxt
-    * https://jwt-v1-front.herokuapp.com/
-  * Rails
-    * https://jwt-v1-api.herokuapp.com/
+- 現状
+  - Nuxt
+    - https://jwt-v1-front.herokuapp.com/
+  - Rails
+    - https://jwt-v1-api.herokuapp.com/
 
 これを以下のような形にする？
 
-* 理想
-  * Nuxt
-    * https://jwt-v1-front.herokuapp.com/
-  * Rails
-    * https://jwt-v1-api.herokuapp.com/
+- 理想
+  - Nuxt
+    - https://jwt-v1-front.herokuapp.com/
+  - Rails
+    - https://jwt-v1-api.herokuapp.com/
 
 ドメイン名は一旦以下ですすめる。
 
@@ -554,13 +553,13 @@ Adding u.fitsplus.jp to ⬢ jwt-v1-front... done
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/front %
 ```
 
-fitsplus.jp 上でも CNAMEで上記の DNS Targetを登録する。
-heroku上では https://dashboard.heroku.com/apps/jwt-v1-front/resources から `Change Dyno Type`から
-`Hobby Plan`を選択する。この時点で$7/monthかかる。2022/06/23契約した。
+fitsplus.jp 上でも CNAME で上記の DNS Target を登録する。
+heroku 上では https://dashboard.heroku.com/apps/jwt-v1-front/resources から `Change Dyno Type`から
+`Hobby Plan`を選択する。この時点で$7/month かかる。2022/06/23 契約した。
 
-### API側
+### API 側
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get API_DOMAIN
 jwt-v1-front.herokuapp.com
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set API_DOMAIN=u.fitsplus.jp
@@ -570,17 +569,17 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get API_DOMA
 u.fitsplus.jp
 ```
 
-### Front側
+### Front 側
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/front % heroku config:set BASE_URL=https://u.fitsplus.jp
 Setting BASE_URL and restarting ⬢ jwt-v1-front... done, v15
 BASE_URL: https://u.fitsplus.jp
 ```
 
-## Rails側にカスタムドメイン設定
+## Rails 側にカスタムドメイン設定
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku domains
 === jwt-v1-api Heroku Domain
 jwt-v1-api.herokuapp.com
@@ -594,9 +593,9 @@ Adding api.u.fitsplus.jp to ⬢ jwt-v1-api... done
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api %
 ```
 
-Rails側はコマンドラインからプラン変更
+Rails 側はコマンドラインからプラン変更
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku ps:resize web=hobby
 Scaling dynos on ⬢ jwt-v1-api... done
 === Dyno Types
@@ -614,15 +613,15 @@ web.1: starting 2022/06/23 06:57:15 +0900 (~ 9s ago)
 
 ちなみに、プランを戻す時は以下で大丈夫なんだそうだ。
 
-```
+```sh
 heroku ps:resize web=free
 ```
 
-### Rails側のSSL証明書がきちんと動作しているか確認
+### Rails 側の SSL 証明書がきちんと動作しているか確認
 
 これもコマンドラインからいけるみたい
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku certs:auto
 === Automatic Certificate Management is enabled on jwt-v1-api
 
@@ -640,17 +639,17 @@ Domain             Status       Last Updated
 api.u.fitsplus.jp  Cert issued  4 minutes
 ```
 
-API_URLもセットしてみる
+API_URL もセットしてみる
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set API_URL=https://api.u.fitsplus.jp
 Setting API_URL and restarting ⬢ jwt-v1-api... done, v23
 API_URL: https://api.u.fitsplus.jp
 ```
 
-### 常時SSL化
+### 常時 SSL 化
 
-```
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get BASE_URL
 https://jwt-v1-api.herokuapp.com
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set BASE_URL=https://api.u.fitsplus.jp
@@ -660,8 +659,9 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get BASE_URL
 https://api.u.fitsplus.jp
 ```
 
-SameSite属性の値を変更
-```
+SameSite 属性の値を変更
+
+```sh
 teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:set COOKIES_SAME_SITE=lax
 Setting COOKIES_SAME_SITE and restarting ⬢ jwt-v1-api... done, v26
 COOKIES_SAME_SITE: lax
@@ -669,14 +669,14 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % heroku config:get COOKIES_
 lax
 ```
 
-# 宿題
+## 宿題
 
-- [x] herokuのプランをfreeプランに戻す
-- [x] herokuをメンテナンスモードにしておく
-- [ ] herokuでIP制限をかける
-- [x] frontをVercelに格納する
-- [x] apiの中に `jwt-rails`と`jwt-front`を格納する
-- [ ] apiをECSで扱えるようにする。
+- [x] heroku のプランを free プランに戻す
+- [x] heroku をメンテナンスモードにしておく
+- [ ] heroku で IP 制限をかける
+- [x] front を Vercel に格納する
+- [x] api の中に `jwt-rails`と`jwt-front`を格納する
+- [ ] api を ECS で扱えるようにする。
 
 ## Document
 
