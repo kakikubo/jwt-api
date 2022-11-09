@@ -44,3 +44,4 @@
 .viminfo
 .env
 .envrc
+pgsql-data/*
