@@ -36,7 +36,7 @@ teruo.kakikubo@QCPF6X4PQY ~/Documents/jwt-rails/api % cat .env
 # commons
 WORKDIR=app
 API_PORT=33000
-FRONT_PORT=8080
+FRONT_PORT=3000
 API_DOMAIN=localhost:3000
 
 # db
