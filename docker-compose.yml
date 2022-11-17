@@ -6,7 +6,7 @@ services:
   # サービス（コンテナ）
   db:
     # ベースイメージを定義
-    image: postgres:14.2-alpine
+    image: postgres:15.0-alpine
     environment:
       # OSのタイムゾーン
       TZ: UTC
@@ -16,7 +16,9 @@ services:
     # ホスト側のディレクトリをコンテナで使用する
     # volumes: ホストパス（絶対 or 相対):コンテナパス(絶対)
     volumes:
-      - "pgsql-volume:/var/lib/postgresql/data"
+      - ./pgsql-data:/var/lib/postgresql/data
+    # volumes:
+    #   - "pgsql-volume:/var/lib/postgresql/data"
 
   api:
     # ベースイメージとなるDockerfileを指定
@@ -63,7 +65,7 @@ services:
   #     - api
 
 volumes:
-  pgsql-volume:
+  # pgsql-volume:
   bundler:
 
   rails_cache:
