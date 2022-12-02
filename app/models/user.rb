@@ -30,7 +30,7 @@ class User < ApplicationRecord
   # [\w\-]      => a-zA-Z0-9_-
   # +           => 1文字以上繰り返す
   # \z          => 文字列の末尾にマッチ
-  VALID_PASSWORD_REGEX = /\A[\w\-]+\z/
+  VALID_PASSWORD_REGEX = /\A[\w-]+\z/
   validates :password, presence: true,
                        length: { minimum: 8, allow_blank: true },
                        format: {
