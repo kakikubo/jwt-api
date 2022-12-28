@@ -45,3 +45,6 @@
 .env
 .envrc
 pgsql-data/*
+vendor/*
+.local
+.idea
