@@ -1,7 +1,7 @@
 name: Build
 
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
-on: [ push, pull_request ]
+on: [ push ]
 
 jobs:
   cancel:
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.1.2
+          ruby-version: 3.2.0
 
       #MySQLをインストール
       #- name: Install dependent libralies
