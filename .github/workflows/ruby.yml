@@ -3,15 +3,11 @@ name: Build
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
 on: [ push ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  cancel:
-    name: 'Cancel Previous Runs'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
   rspec_job:
     #ubuntu環境で動かします
     runs-on: ubuntu-latest
@@ -28,7 +24,7 @@ jobs:
 
     #GitHub Actionsでサポートしているrubyのversionは2.6系以降です
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
@@ -42,26 +38,9 @@ jobs:
       - name: Setup bundler
         run: gem install bundler
 
-      - name: Cache gems
-        uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
-      #- name: Cache node modules
-      #  uses: actions/cache@v2
-      #  with:
-      #    path: node_modules
-      #    key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      #    restore-keys: |
-      #      ${{ runner.os }}-node-
       - name: bundle install
         run: |
           bundle install --jobs 4 --retry 3 --path vendor/bundle
-        # working-directory: ./api #不要かな
-      # - name: yarn install
-      #   run: yarn install --check-files
       - name: rubocop
         run: bundle exec rubocop
       - name: tmp cache clear
@@ -72,7 +51,6 @@ jobs:
           cp config/database.yml.github-actions config/database.yml
           bundle exec rake db:create
           bundle exec rake db:schema:load
-        # working-directory: ./api
         env:
           RAILS_ENV: test
           POSTGRES_USER: postgres
@@ -90,6 +68,14 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASE_URL: 'http://localhost:3000'
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # 対象リポジトリがpublicリポジトリならばトークン不要
+          files: ./coverage/coverage.xml
+          flags: unittests
+          name: ruby-sample-for-codecov
+          fail_ci_if_error: true
       # working-directory: ./api
       # - name: Codecov
       #   uses: codecov/codecov-action@v2.1.0
