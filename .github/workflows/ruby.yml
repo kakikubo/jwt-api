@@ -90,6 +90,14 @@ jobs:
           POSTGRES_PASSWORD: postgres
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASE_URL: 'http://localhost:3000'
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # 対象リポジトリがpublicリポジトリならばトークン不要
+          files: ./coverage/coverage.xml
+          flags: unittests
+          name: ruby-sample-for-codecov
+          fail_ci_if_error: true
       # working-directory: ./api
       # - name: Codecov
       #   uses: codecov/codecov-action@v2.1.0

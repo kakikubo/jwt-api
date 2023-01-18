@@ -79,6 +79,7 @@ GEM
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    docile (1.4.0)
     erubi (1.11.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -210,6 +211,15 @@ GEM
       rubocop (~> 1.33)
       rubocop-capybara
     ruby-progressbar (1.11.0)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-cobertura (2.1.0)
+      rexml
+      simplecov (~> 0.19)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
@@ -241,6 +251,8 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   rubocop-rspec
+  simplecov
+  simplecov-cobertura
   tzinfo-data
 
 RUBY VERSION
