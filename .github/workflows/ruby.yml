@@ -5,9 +5,10 @@ on:
   pull_request_target:
     types: [opened, reopened, synchronize]
   pull_request:
+  push:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
+  group: jwt-api-${{ github.event.pull_request.head.ref }}
   cancel-in-progress: true
 
 jobs:
