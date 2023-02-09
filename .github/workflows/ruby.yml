@@ -31,6 +31,11 @@ jobs:
       (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
       (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     steps:
+      - name: debug
+        run: |
+          echo 'github.event.pull_request.head.ref' ${{ github.event.pull_request.head.ref }}
+          echo 'github.ref_name' ${{ github.ref_name }}
+          echo 'github.event.pull_request.number' ${{ github.event.pull_request.number }}
       - name: checkout
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v3
