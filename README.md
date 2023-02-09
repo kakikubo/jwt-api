@@ -11,7 +11,7 @@ pie title 進捗率
 
 ## architechture
 
-- ruby 3.2.0
+- ruby 3.2.1
 - rails 7.0.x
 - nuxt 2.x
 - node 16.14.2
