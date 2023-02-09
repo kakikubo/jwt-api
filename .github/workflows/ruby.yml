@@ -6,6 +6,8 @@ on:
     types: [opened, reopened, synchronize]
   pull_request:
   push:
+    branches:
+      - staging
 
 concurrency:
   group: jwt-api-${{ github.event.pull_request.head.ref || github.ref_name }}
