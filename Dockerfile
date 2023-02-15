@@ -1,6 +1,6 @@
 # ベースイメージを指定する
 # FROM ベースイメージ:タグ
-FROM ruby:3.2.0-alpine
+FROM ruby:3.2.1-alpine
 
 # Dockerfile内で使用する変数を定義
 # appが入る予定
