@@ -2,9 +2,8 @@ name: Build
 
 #プルリクエスト作成時に実行(他にもpush時など設定できます)
 on:
-  pull_request_target:
-    types: [opened, reopened, synchronize]
   pull_request:
+    types: [opened, reopened, synchronize]
   push:
     branches:
       - staging
@@ -29,9 +28,6 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     #GitHub Actionsでサポートしているrubyのversionは2.6系以降です
-    if: |
-      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
-      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
     steps:
       - name: debug
         run: |
@@ -40,10 +36,10 @@ jobs:
           echo 'github.ref_name' ${{ github.ref_name }}
           echo 'github.event.pull_request.number' ${{ github.event.pull_request.number }}
       - name: checkout
-        if: ${{ github.event_name != 'pull_request_target' }}
+        if: ${{ github.event_name != 'pull_request' }}
         uses: actions/checkout@v3
       - name: checkout pr
-        if: ${{ github.event_name == 'pull_request_target' }}
+        if: ${{ github.event_name == 'pull_request' }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
