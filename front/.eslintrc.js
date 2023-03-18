@@ -17,6 +17,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    quotes: ["single", "double"],
     'vue/multi-word-component-names': 'off'
   }
 }
