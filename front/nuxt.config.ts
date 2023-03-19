@@ -1,4 +1,4 @@
-export default ({
+export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -51,7 +51,7 @@ export default ({
   runtimeConfig: {
     public: {
       appName: process.env.APP_NAME,
-    }
+    },
   },
 
   // global middleware
@@ -124,10 +124,10 @@ export default ({
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend(config, ctx) {
-    // Remove or comment out eslint-webpack-plugin
-    // config.plugins = config.plugins.filter(
-    //   (plugin) => plugin.constructor.name !== 'ESLintWebpackPlugin'
-    // )
-    }
+      // Remove or comment out eslint-webpack-plugin
+      // config.plugins = config.plugins.filter(
+      //   (plugin) => plugin.constructor.name !== 'ESLintWebpackPlugin'
+      // )
+    },
   },
-});
+};
