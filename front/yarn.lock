@@ -6479,7 +6479,7 @@ nth-check@^2.0.1:
   dependencies:
     boolbase "^1.0.0"
 
-nuxt@^2.15.8:
+nuxt@^2.16.0:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-2.16.3.tgz#d0338ab9145bc60aa3d927f03d20e439b9adddf4"
   integrity sha512-KfqOwtsgo2vew+mHNTQZOf23SlUYYnppH65Rj7whmbXJ+J28Rdvx8ccTj0Mir13TVpjUMtxYBq9VWAL6cFZyOA==
