@@ -164,6 +164,7 @@ RSpec.describe User, type: :model do
           user.save
           minlength_msg = ['パスワードは8文字以上で入力してください']
           expect(user.errors.full_messages).to eq(minlength_msg)
+          expect(user).to be_invalid
         end
 
         it 'max文字以下' do
