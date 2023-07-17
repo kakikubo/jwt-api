@@ -48,3 +48,6 @@ pgsql-data/*
 vendor/*
 .local
 .idea
+
+/coverage/*
+!/coverage/.keep
