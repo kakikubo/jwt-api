@@ -10,12 +10,14 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
+    'eslint:recommended',
     'plugin:nuxt/recommended'
   ],
   plugins: [
   ],
   // add your custom rules here
   rules: {
+    quotes: ["single", "double"],
     'vue/multi-word-component-names': 'off'
   }
 }
