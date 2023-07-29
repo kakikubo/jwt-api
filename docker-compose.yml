@@ -49,7 +49,7 @@ services:
     # 公開用ポートを指定
     # 公開したいポート番号:コンテナポート
     ports:
-      - "$API_PORT:3000"
+      - "${API_PORT:-13000}:3000"
 
   # front:
   #   build:
