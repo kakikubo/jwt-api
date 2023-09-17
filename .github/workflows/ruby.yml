@@ -86,7 +86,7 @@ jobs:
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           BASE_URL: 'http://localhost:3000'
       - name: Upload coverage reports
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # 対象リポジトリがpublicリポジトリならばトークン不要
           files: ./coverage/coverage.xml
