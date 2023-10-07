@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Authentications', type: :request do
+RSpec.describe 'Authentications' do
   describe 'GET /authentications' do
     let(:user) { active_user }
     let(:params) { { auth: { email: user.email, password: 'password' } } }

@@ -6,7 +6,7 @@ require 'rails_helper'
 # cookies[]の操作にはapplication.rbにCookieを処理するmiddlewareを追加
 # config.middleware.use ActionDispatch::Cookies
 
-RSpec.describe 'Api::V1::AuthTokens', type: :request do
+RSpec.describe 'Api::V1::AuthTokens' do
   let!(:user) { active_user }
   let!(:params) { { auth: { email: user.email, password: 'password' } } }
   let!(:access_lifetime) { UserAuth.access_token_lifetime }
@@ -22,8 +22,8 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   def response_check_of_invalid_request(status, error_msg = nil)
     expect(response.status).to eq(status)
     user.reload
-    expect(user.refresh_jti).to eq(nil)
-    expect(response.body.present?).not_to be_truthy if error_msg.nil?
+    expect(user.refresh_jti).to be_nil
+    expect(response.body).not_to be_present if error_msg.nil?
     expect(error_msg).to eq(res_body['error']) unless error_msg.nil?
   end
   # rubocop:enable Metrics/AbcSize
@@ -50,7 +50,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
       it 'jtiは保存されているか' do
         user.reload
-        expect(user.refresh_jti).not_to be(nil)
+        expect(user.refresh_jti).not_to be_nil
       end
 
       it 'レスポンスユーザは正しいか' do
@@ -151,9 +151,9 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
       end
 
       it 'nilでないか' do
-        expect(@old_access_token).not_to eq nil
-        expect(@old_refresh_token).not_to eq nil
-        expect(@old_user_jti).not_to eq nil
+        expect(@old_access_token).not_to be_nil
+        expect(@old_refresh_token).not_to be_nil
+        expect(@old_user_jti).not_to be_nil
       end
 
       context 'refreshアクションにアクセス' do
@@ -172,9 +172,9 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
         end
 
         it 'nilでないか' do
-          expect(@new_access_token).not_to eq nil
-          expect(@new_refresh_token).not_to eq nil
-          expect(@new_user_jti).not_to eq nil
+          expect(@new_access_token).not_to be_nil
+          expect(@new_refresh_token).not_to be_nil
+          expect(@new_user_jti).not_to be_nil
         end
 
         it 'tokenとjtiが新しく発行されているか' do
@@ -261,7 +261,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
           it 'userのjtiは削除できているか' do
             user.reload
-            expect(user.refresh_jti).to eq nil
+            expect(user.refresh_jti).to be_nil
           end
         end
 

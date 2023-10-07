@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'RefreshTokens', type: :request do
+RSpec.describe 'RefreshTokens' do
   let!(:user) { active_user }
   let!(:encode) { UserAuth::RefreshToken.new(user_id: user.id) }
   let!(:lifetime) { UserAuth.refresh_token_lifetime }
@@ -76,7 +76,10 @@ RSpec.describe 'RefreshTokens', type: :request do
     it 'userにjtiが存在しない場合' do
       user.forget
       user.reload
-      expect(user.refresh_jti).to eq(nil)
+      expect(user.refresh_jti).to be_nil
+    end
+
+    it 'userにjtiが存在しない場合エラーになる' do
       expect { UserAuth::RefreshToken.new(token: encode.token) }.to raise_error(JWT::InvalidJtiError)
     end
   end

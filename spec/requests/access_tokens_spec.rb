@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AccessTokens', type: :request do
+RSpec.describe 'AccessTokens' do
   let!(:user) { active_user }
   let!(:encode) { UserAuth::AccessToken.new(user_id: user.id) }
   let!(:lifetime) { UserAuth.access_token_lifetime }
@@ -19,17 +19,17 @@ RSpec.describe 'AccessTokens', type: :request do
 
       it 'user_idがnilの場合、暗号メソッドはnilを返しているか' do
         user_id = nil
-        expect(encode.send(:encrypt_for, user_id)).to be nil
+        expect(encode.send(:encrypt_for, user_id)).to be_nil
       end
 
       it 'user_idがnilの場合、複合メソッドはnilを返しているか' do
         user_id = nil
-        expect(encode.send(:decrypt_for, user_id)).to be nil
+        expect(encode.send(:decrypt_for, user_id)).to be_nil
       end
 
       it 'user_idが不正な場合、複合メソッドはnilを返しているか' do
         user_id = 'aaaaaa'
-        expect(encode.send(:decrypt_for, user_id)).to be nil
+        expect(encode.send(:decrypt_for, user_id)).to be_nil
       end
     end
   end

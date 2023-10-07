@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   describe 'バリデーション' do
     let(:user) { active_user }
 
     it '名前入力必須である事を検証する' do
-      user = User.new(email: 'test@example.com', password: 'password')
+      user = described_class.new(email: 'test@example.com', password: 'password')
       user.save
       required_msg = ['名前を入力してください']
       expect(user.errors.full_messages).to eq(required_msg)
@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
     let(:user) { active_user }
 
     it '入力必須' do
-      user = User.new(name: 'test', password: 'password')
+      user = described_class.new(name: 'test', password: 'password')
       user.save
       required_msg = ['メールアドレスを入力してください']
       expect(user.errors.full_messages).to eq(required_msg)
@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     it '文字数制限は255文字まで' do
       max = 255
       domain = '@example.com'
-      email = 'a' * (max + 1 - domain.length) + domain
+      email = ('a' * (max + 1 - domain.length)) + domain
       assert max < email.length
       user.email = email
       user.save
@@ -97,7 +97,7 @@ RSpec.describe User, type: :model do
 
     it 'email小文字化テスト' do
       email = 'USER@EXAMPLE.COM'
-      user = User.new(email:)
+      user = described_class.new(email:)
       user.save
       expect(user.email).to eq('user@example.com')
     end
@@ -110,14 +110,14 @@ RSpec.describe User, type: :model do
         it '何度でも同じemailで登録が可能' do
           expect do
             user_count.times do |_n|
-              User.create(name: 'test', email:, password: 'password')
+              described_class.create(name: 'test', email:, password: 'password')
             end
-          end.to change(User, :count).by(3)
+          end.to change(described_class, :count).by(3)
         end
       end
 
       context 'アクティブユーザがいる場合' do
-        let(:active_user) { User.create(name: 'test', email:, password: 'password') }
+        let(:active_user) { described_class.create(name: 'test', email:, password: 'password') }
 
         before do
           active_user.update!(activated: true)
@@ -126,19 +126,19 @@ RSpec.describe User, type: :model do
 
         it '同じemailでバリデーションエラーを吐いているか。ユーザ数に変化がないか' do
           expect do
-            user = User.new(name: 'test', email:, password: 'password')
+            user = described_class.new(name: 'test', email:, password: 'password')
             user.save
             uniqueness_msg = ['メールアドレスはすでに存在します']
             expect(user.errors.full_messages).to eq(uniqueness_msg)
-          end.to change(User, :count).by(0)
+          end.not_to change(described_class, :count)
         end
       end
 
       context 'アクティブユーザがいなくなった場合' do
-        let(:active_user) { User.create(name: 'test', email:, password: 'password') }
-        let(:user1) { User.create(name: 'test', email:, password: 'password') }
-        let(:user2) { User.create(name: 'test', email:, password: 'password') }
-        let(:user3) { User.create(name: 'test', email:, password: 'password') }
+        let(:active_user) { described_class.create(name: 'test', email:, password: 'password') }
+        let(:user1) { described_class.create(name: 'test', email:, password: 'password') }
+        let(:user2) { described_class.create(name: 'test', email:, password: 'password') }
+        let(:user3) { described_class.create(name: 'test', email:, password: 'password') }
 
         before do
           active_user.destroy
@@ -146,9 +146,9 @@ RSpec.describe User, type: :model do
 
         it '同じemailアドレスが保存できるようになっている' do
           expect do
-            user = User.new(name: 'test', email:, password: 'password')
+            user = described_class.new(name: 'test', email:, password: 'password')
             user.save
-          end.to change(User, :count).by(1)
+          end.to change(described_class, :count).by(1)
         end
 
         it 'アクティブユーザの一意性は保たれている' do
@@ -156,13 +156,13 @@ RSpec.describe User, type: :model do
           expect(user2.email).to eq(user3.email)
           user3.activated = true
           user3.save
-          expect(User.where(email:, activated: true).count).to eq(1)
+          expect(described_class.where(email:, activated: true).count).to eq(1)
         end
       end
 
       context 'パスワードバリデーション' do
         it '入力必須' do
-          user = User.new(name: 'test', email: 'test@example.com')
+          user = described_class.new(name: 'test', email: 'test@example.com')
           user.save
           required_msg = ['パスワードを入力してください']
           expect(user.errors.full_messages).to eq(required_msg)
@@ -174,7 +174,7 @@ RSpec.describe User, type: :model do
           user.save
           minlength_msg = ['パスワードは8文字以上で入力してください']
           expect(user.errors.full_messages).to eq(minlength_msg)
-          expect(user).to be_invalid
+          expect(user).not_to be_valid
         end
 
         it 'max文字以下' do
