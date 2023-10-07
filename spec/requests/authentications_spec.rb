@@ -33,9 +33,13 @@ RSpec.describe 'Authentications' do
         end
       end
 
-      it '不正なtokenが投げられた場合' do
+      it '不正なtokenが投げられた場合に認証エラーになっている' do
         projects_api(invalid_token)
         expect(response).to have_http_status(:unauthorized)
+      end
+
+      it '不正なtokenが投げられた場合にbodyがない' do
+        projects_api(invalid_token)
         expect(response.body).not_to be_present
       end
     end

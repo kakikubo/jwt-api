@@ -40,6 +40,10 @@ RSpec.describe 'RefreshTokens' do
     it 'verify_claimsは想定通りか' do
       verify_claims = decode.send(:verify_claims)
       expect(verify_claims[:verify_expiration]).to be_truthy
+    end
+
+    it 'verify_claimsのsignature_algorithmは想定通りか' do
+      verify_claims = decode.send(:verify_claims)
       expect(UserAuth.token_signature_algorithm).to eq(verify_claims[:algorithm])
     end
 
