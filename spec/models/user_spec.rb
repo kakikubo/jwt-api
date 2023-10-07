@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'バリデーション' do
     let(:user) { active_user }
+
     it '名前入力必須である事を検証する' do
       user = User.new(email: 'test@example.com', password: 'password')
       user.save
@@ -35,12 +36,14 @@ RSpec.describe User, type: :model do
 
   describe 'emailのバリデーション' do
     let(:user) { active_user }
+
     it '入力必須' do
       user = User.new(name: 'test', password: 'password')
       user.save
       required_msg = ['メールアドレスを入力してください']
       expect(user.errors.full_messages).to eq(required_msg)
     end
+
     it '文字数制限は255文字まで' do
       max = 255
       domain = '@example.com'
@@ -67,6 +70,7 @@ RSpec.describe User, type: :model do
         expect(user).to be_valid
       end
     end
+
     it '間違った書式はエラーを吐いているか' do
       ng_emails = %w[
         aaa
@@ -101,6 +105,7 @@ RSpec.describe User, type: :model do
     describe 'アクティブユーザの一意性テスト' do
       let(:email) { 'test@example.com' }
       let(:user_count) { 3 }
+
       context 'アクティブユーザがいない場合' do
         it '何度でも同じemailで登録が可能' do
           expect do
@@ -110,8 +115,10 @@ RSpec.describe User, type: :model do
           end.to change(User, :count).by(3)
         end
       end
+
       context 'アクティブユーザがいる場合' do
         let(:active_user) { User.create(name: 'test', email:, password: 'password') }
+
         before do
           active_user.update!(activated: true)
           assert active_user.activated
@@ -126,11 +133,13 @@ RSpec.describe User, type: :model do
           end.to change(User, :count).by(0)
         end
       end
+
       context 'アクティブユーザがいなくなった場合' do
         let(:active_user) { User.create(name: 'test', email:, password: 'password') }
         let(:user1) { User.create(name: 'test', email:, password: 'password') }
         let(:user2) { User.create(name: 'test', email:, password: 'password') }
         let(:user3) { User.create(name: 'test', email:, password: 'password') }
+
         before do
           active_user.destroy
         end
@@ -141,6 +150,7 @@ RSpec.describe User, type: :model do
             user.save
           end.to change(User, :count).by(1)
         end
+
         it 'アクティブユーザの一意性は保たれている' do
           expect(user1.email).to eq(user2.email)
           expect(user2.email).to eq(user3.email)

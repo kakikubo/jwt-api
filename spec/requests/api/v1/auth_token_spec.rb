@@ -15,7 +15,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
   let!(:access_token_key) { 'token' }
 
   # rubocop:disable Metrics/AbcSize
-  shared_context :response_check_of_invalid_request do |status, error_msg = nil|
+  shared_context 'response check of invalid request' do |status, error_msg = nil|
   end
 
   # 無効なリクエストで返ってくるレスポンスチェック
@@ -84,6 +84,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
       context 'リロード' do
         before { user.reload }
+
         it 'ログイン本人と一致しているか' do
           expect(refresh_token.entity_for_user).to eq(user)
         end
@@ -101,6 +102,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
   describe '無効なログイン' do
     let(:pass) { 'password' }
+
     context '不正なユーザの場合' do
       let(:invalid_params) { { auth: { email: user.email, password: "#{pass}a" } } }
 
@@ -110,6 +112,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
         response_check_of_invalid_request 404
       end
     end
+
     context 'アクティブユーザでない場合' do
       let(:inactive_user) { User.create(name: 'a', email: 'a@a.a', password: pass) }
       let(:invalid_params) { { auth: { email: inactive_user.email, password: pass } } }
@@ -132,6 +135,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
       end
     end
   end
+
   describe '有効なリフレッシュ' do
     context '有効なログイン' do
       before do
@@ -145,6 +149,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
       it '正常なレスポンスが返る' do
         expect(response).to have_http_status(:ok)
       end
+
       it 'nilでないか' do
         expect(@old_access_token).not_to eq nil
         expect(@old_refresh_token).not_to eq nil
@@ -153,6 +158,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
       context 'refreshアクションにアクセス' do
         let(:payload) { User.decode_refresh_token(@new_refresh_token).payload }
+
         before do
           refresh_api
           user.reload
@@ -201,20 +207,26 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
         @new_refresh_token = cookies[session_key]
         cookies[session_key] = @old_refresh_token # 1つ目のブラウザの方で操作をする
       end
+
       it '1つ目のブラウザの値が入っていること' do
         expect(cookies[session_key]).not_to be_blank
       end
+
       context '1つ目のブラウザ(古いrefresh_token)でアクセスする' do
         before { refresh_api }
+
         it '1つ目のブラウザ(古いrefresh_token)でアクセスするとエラーを吐いているか' do
           expect(response).to have_http_status(:unauthorized)
         end
+
         it 'クッキーが削除されていること' do
           expect(cookies[session_key]).to be_blank
         end
+
         it 'jtiエラーはカスタムメッセージを吐いているか' do
           expect(res_body['error']).to eq('Invalid jti for refresh token')
         end
+
         it '有効期限後はアクセスできないか' do
           travel_to(refresh_lifetime.from_now) do
             refresh_api
@@ -230,6 +242,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
     describe 'destroy_action' do
       context '有効なログイン' do
         before { login params }
+
         it '正常なレスポンスが返される' do
           expect(response).to have_http_status(:ok)
           user.reload
@@ -240,6 +253,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
 
         context '有効なログアウト' do
           before { logout }
+
           it 'cookieは削除されているか' do
             expect(response).to have_http_status(:ok)
             expect(cookies[session_key]).to be_blank
@@ -250,6 +264,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
             expect(user.refresh_jti).to eq nil
           end
         end
+
         context 'sessionがない状態でログアウト' do
           before do
             cookies[session_key] = nil
@@ -262,6 +277,7 @@ RSpec.describe 'Api::V1::AuthTokens', type: :request do
           end
         end
       end
+
       context '有効なログイン' do
         before { login params }
 
