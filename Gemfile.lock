@@ -90,8 +90,9 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    irb (1.7.0)
-      reline (>= 0.3.0)
+    irb (1.8.1)
+      rdoc
+      reline (>= 0.3.8)
     json (2.6.3)
     jwt (2.7.1)
     loofah (2.21.3)
@@ -112,15 +113,15 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    msgpack (1.7.1)
-    net-imap (0.3.7)
+    msgpack (1.7.2)
+    net-imap (0.4.0)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.1)
       timeout
-    net-smtp (0.3.3)
+    net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
     nokogiri (1.15.4)
@@ -129,10 +130,12 @@ GEM
     nokogiri (1.15.4-aarch64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
     pg (1.5.4)
+    psych (5.1.0)
+      stringio
     puma (6.4.0)
       nio4r (~> 2.0)
     racc (1.7.1)
@@ -171,8 +174,10 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.0.6)
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
     regexp_parser (2.8.1)
-    reline (0.3.5)
+    reline (0.3.9)
       io-console (~> 0.5)
     rexml (3.2.6)
     rspec-core (3.12.2)
@@ -180,7 +185,7 @@ GEM
     rspec-expectations (3.12.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
-    rspec-mocks (3.12.5)
+    rspec-mocks (3.12.6)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
     rspec-rails (6.0.3)
@@ -191,7 +196,7 @@ GEM
       rspec-expectations (~> 3.12)
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
-    rspec-support (3.12.0)
+    rspec-support (3.12.1)
     rubocop (1.42.0)
       json (~> 2.3)
       parallel (~> 1.10)
@@ -208,7 +213,7 @@ GEM
       rubocop (~> 1.41)
     rubocop-factory_bot (2.24.0)
       rubocop (~> 1.33)
-    rubocop-rails (2.21.2)
+    rubocop-rails (2.21.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
@@ -226,6 +231,10 @@ GEM
       simplecov (~> 0.19)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
+    spring (4.1.1)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
+    stringio (3.0.8)
     thor (1.2.2)
     timeout (0.4.0)
     tzinfo (2.0.6)
@@ -234,7 +243,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.11)
+    zeitwerk (2.6.12)
 
 PLATFORMS
   aarch64-linux-musl
@@ -254,10 +263,11 @@ DEPENDENCIES
   rails (~> 7.0.8)
   rspec-rails
   rubocop
-  rubocop-rails
+  rubocop-rails (= 2.21.1)
   rubocop-rspec
   simplecov
   simplecov-cobertura
+  spring-commands-rspec
   tzinfo-data
 
 RUBY VERSION
