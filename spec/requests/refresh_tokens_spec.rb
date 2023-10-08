@@ -84,6 +84,8 @@ RSpec.describe 'RefreshTokens' do
     end
 
     it 'userにjtiが存在しない場合エラーになる' do
+      user.forget
+      user.reload
       expect { UserAuth::RefreshToken.new(token: encode.token) }.to raise_error(JWT::InvalidJtiError)
     end
   end
