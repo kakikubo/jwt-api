@@ -23,13 +23,24 @@ RSpec.describe 'Authentications' do
         expect(response.body).to be_present
       end
 
-      it '有効期限切れは401が返っているか' do
+      context 'tokenが有効期限切れのとき' do
         travel_to(access_lifetime.from_now) do
-          expect(cookies[session_key]).not_to be_blank
+          it 'セッションキーがあるか' do
+            expect(cookies[session_key]).not_to be_blank
+          end
+
           projects_api(access_token)
-          expect(response).to have_http_status(:unauthorized)
-          expect(response.body).not_to be_present
-          expect(cookies[session_key]).to be_blank
+          it '有効期限切れは401が返っているか' do
+            expect(response).to have_http_status(:unauthorized)
+          end
+
+          it '有効期限切れはbodyがない' do
+            expect(response.body).not_to be_present
+          end
+
+          it '有効期限切れはセッションキーがないか' do
+            expect(cookies[session_key]).to be_blank
+          end
         end
       end
 
