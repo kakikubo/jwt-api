@@ -9,6 +9,7 @@ ja:
         admin: 管理者フラグ
     errors:
       messages:
+        password_too_long: 'は72文字以内で入力してください'
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
