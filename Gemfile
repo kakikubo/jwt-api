@@ -51,7 +51,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'rubocop'
-  gem 'rubocop-rails', '= 2.21.1'
+  gem 'rubocop-rails', '2.21.2'
   gem 'rubocop-rspec'
   gem 'spring-commands-rspec'
 end
