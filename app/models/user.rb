@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'validator/email_validator'
+require_relative '../validators/email_validator'
 
 # Userモデル
 class User < ApplicationRecord
