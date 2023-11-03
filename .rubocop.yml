@@ -1,6 +1,16 @@
 inherit_from: .rubocop_todo.yml
+inherit_mode:
+  merge:
+    - Include
+    - Exclude
+    - AllowedPatterns
+require:
+  - rubocop-rspec
+    #- rubocop-rails
 AllCops:
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.2
+  NewCops: enable
+
 Naming/VariableNumber:
   Enabled: false
 Metrics/BlockLength:

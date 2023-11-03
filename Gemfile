@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.5'
@@ -51,8 +51,9 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'rubocop'
-  gem 'rubocop-rails'
+  gem 'rubocop-rails', '= 2.21.1'
   gem 'rubocop-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
