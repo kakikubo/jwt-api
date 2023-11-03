@@ -284,7 +284,7 @@ DEPENDENCIES
   rails (~> 7.1.1)
   rspec-rails
   rubocop
-  rubocop-rails (= 2.22.1)
+  rubocop-rails
   rubocop-rspec
   simplecov
   simplecov-cobertura
