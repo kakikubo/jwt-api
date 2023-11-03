@@ -1,5 +1,5 @@
 # FROM node:14.4.0-alpine 使用不可
-FROM node:18.16.0-alpine
+FROM node:18.18.2-alpine
 
 ARG WORKDIR
 ARG API_URL
