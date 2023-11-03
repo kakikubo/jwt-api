@@ -51,3 +51,4 @@ vendor/*
 
 coverage/*
 !coverage/.keep
+.config/gh
