@@ -59,6 +59,14 @@ APP_NAME=BizPlanner
 dip provision
 ```
 
+もしくは
+
+```bash
+docker-compose up -d db
+./bin/setup
+bundle exec rails db:migrate:reset db:seed
+```
+
 ### Nuxt 側の設定
 
 ```sh
@@ -72,6 +80,12 @@ terminal1
 
 ```sh
 dip rails s
+```
+
+もしくは
+
+```bash
+bundle exec rails server -p 33000 -b '0.0.0.0'
 ```
 
 terminal2
@@ -257,7 +271,7 @@ irb(main):006:0>
 
 https://dequeuniversity.com/rules/axe/3.2/color-contrast
 
-```
+```bash
 teruo.kakikubo@QCPF6X4PQY ~/Documents/dietplus-server % time dip bundle exec rspec spec/requests/kenpo/events_spec.rb
 [+] Running 2/0
  ⠿ Container dietplus-server-db-1     Running                                                                                                                                                0.0s
