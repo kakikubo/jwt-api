@@ -1,0 +1,18 @@
+# commons
+export WORKDIR=app
+export API_PORT=33000
+export FRONT_PORT=3000
+export API_DOMAIN=localhost:3000
+export PGSQL_HOST=pgsql.lvh.me
+export PGSQL_PORT=25432
+export BASE_URL=http://localhost:3000
+
+# db
+export POSTGRES_PASSWORD=password
+
+export RAILS_MASTER_KEY=
+export RUBY_CONFIGURE_OPTS="--disable-install-doc --disable-shared --with-openssl-dir=$(brew --prefix openssl@3)"
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export GH_CONFIG_DIR=$PWD/.config/gh
