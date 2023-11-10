@@ -14,7 +14,7 @@ pie title 進捗率
 - ruby 3.2.2
 - rails 7.0.x
 - nuxt 2.x
-- node 18.16.0
+- nodejs 18.18.2
 
 - [Vuetify — A Material Design Framework for Vue.js](https://vuetifyjs.com/ja/)
 
