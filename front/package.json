@@ -17,7 +17,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/i18n": "^7.3.1",
-    "core-js": "^3.33.2",
+    "core-js": "^3.33.3",
     "jwt-decode": "^4.0.0",
     "nuxt": "^2.16.0",
     "vue": "^2.6.14",
@@ -26,12 +26,12 @@
     "webpack": "^5.89.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.15",
+    "@babel/eslint-parser": "^7.23.3",
     "@nuxt/bridge": "npm:@nuxt/bridge-edge",
     "@nuxtjs/eslint-config": "^12.0.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/vuetify": "^1.12.3",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-vue": "^9.18.1",
     "node-gyp": "^10.0.1"
