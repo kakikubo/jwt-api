@@ -49,6 +49,6 @@ vendor/*
 .local
 .idea
 
-coverage/*
 !coverage/.keep
+coverage/*
 .config/gh
