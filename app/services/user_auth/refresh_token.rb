@@ -89,7 +89,7 @@ module UserAuth
         verify_jti: proc { |jti, payload|  # jtiとセッションIDの検証
           verify_jti?(jti, payload)
         },
-        algorithm:               # decode時のアルゴリズム
+        algorithm: # decode時のアルゴリズム
       }
     end
   end
