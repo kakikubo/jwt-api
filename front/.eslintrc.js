@@ -1,3 +1,5 @@
+const OFF = 0; const WARN = 1; const ERROR = 2
+
 module.exports = {
   root: true,
   env: {
@@ -17,7 +19,9 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    quotes: ["single", "double"],
+    'no-path-concat': ERROR,
+    'sort-vars': OFF,
+    quotes: [WARN, 'single'],
     'vue/multi-word-component-names': 'off'
   }
 }
