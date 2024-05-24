@@ -117,7 +117,7 @@ GEM
     marcel (1.0.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.6)
-    minitest (5.23.0)
+    minitest (5.23.1)
     minitest-reporters (1.6.1)
       ansi
       builder
