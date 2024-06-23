@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": ">=18.16.0"
+    "node": ">=20.14.0"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS='--openssl-legacy-provider' nuxi",
+    "dev": "NODE_OPTIONS='--openssl-legacy-provider' nuxi dev",
+    "dev:mock": "MOCK_SERVER=1 yarn dev",
     "build": "NODE_OPTIONS='--openssl-legacy-provider' nuxi build",
     "start": "NODE_OPTIONS='--openssl-legacy-provider' nuxi start",
     "generate": "NODE_OPTIONS='--openssl-legacy-provider' nuxi generate",

@@ -1,3 +1,5 @@
+const mockServer = process.env.MOCK_SERVER === "1";
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
