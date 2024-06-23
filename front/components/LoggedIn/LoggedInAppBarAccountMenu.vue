@@ -1,28 +1,12 @@
 <template>
-  <v-menu
-    app
-    offset-x
-    offset-y
-    max-width="200"
-  >
-    <template
-      #activator="{ on }"
-    >
-      <v-btn
-        icon
-        v-on="on"
-      >
-        <v-icon>
-          mdi-account-circle
-        </v-icon>
+  <v-menu app offset-x offset-y max-width="200">
+    <template #activator="{ on }">
+      <v-btn icon v-on="on">
+        <v-icon> mdi-account-circle </v-icon>
       </v-btn>
     </template>
-    <v-list
-      dense
-    >
-      <v-subheader>
-        ログイン中のユーザー
-      </v-subheader>
+    <v-list dense>
+      <v-subheader> ログイン中のユーザー </v-subheader>
 
       <v-list-item>
         <v-list-item-content>
@@ -34,29 +18,14 @@
 
       <v-divider />
 
-      <v-subheader>
-        アカウント
-      </v-subheader>
+      <v-subheader> アカウント </v-subheader>
 
-      <template
-        v-for="(menu, i) in menus"
-      >
-        <v-divider
-          v-if="menu.divider"
-          :key="`menu-divider-${i}`"
-        />
+      <template v-for="(menu, i) in menus">
+        <v-divider v-if="menu.divider" :key="`menu-divider-${i}`" />
 
-        <v-list-item
-          :key="`menu-list-${i}`"
-          :to="{ name: menu.name }"
-        >
-          <v-list-item-icon
-            class="mr-2"
-          >
-            <v-icon
-              size="22"
-              v-text="menu.icon"
-            />
+        <v-list-item :key="`menu-list-${i}`" :to="{ name: menu.name }">
+          <v-list-item-icon class="mr-2">
+            <v-icon size="22" v-text="menu.icon" />
           </v-list-item-icon>
           <v-list-item-title>
             <!-- pages.account.settings -->
@@ -70,14 +39,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       menus: [
-        { name: 'account-settings', icon: 'mdi-account-cog' },
-        { name: 'account-password', icon: 'mdi-lock-outline' },
-        { name: 'logout', icon: 'mdi-logout-variant', divider: true }
-      ]
-    }
-  }
-}
+        { name: "account-settings", icon: "mdi-account-cog" },
+        { name: "account-password", icon: "mdi-lock-outline" },
+        { name: "logout", icon: "mdi-logout-variant", divider: true },
+      ],
+    };
+  },
+};
 </script>

@@ -13,33 +13,32 @@ export default {
   props: {
     email: {
       type: String,
-      default: ''
+      default: "",
     },
     placeholder: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
       rules: [
         // 入力必須
-        v => !!v || '',
+        (v) => !!v || "",
         // 書式チェック
-        v => /.+@.+\..+/.test(v) || ''
-      ]
-
-    }
+        (v) => /.+@.+\..+/.test(v) || "",
+      ],
+    };
   },
   computed: {
     setEmail: {
-      get () {
-        return this.email
+      get() {
+        return this.email;
       },
-      set (newValue) {
-        return this.$emit('update:email', newValue)
-      }
-    }
-  }
-}
+      set(newValue) {
+        return this.$emit("update:email", newValue);
+      },
+    },
+  },
+};
 </script>
