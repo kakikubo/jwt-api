@@ -54,8 +54,8 @@
       <v-col cols="12" sm="10" md="8">
         <v-list flat dense>
           <v-divider />
-          <template v-for="(info, i) in infomations">
-            <v-list-item :key="`info-list-${i}`">
+          <template v-for="(info, i) in infomations" :key="`info-${i}`">
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon v-text="info.icon" />
               </v-list-item-icon>
@@ -72,7 +72,7 @@
                 <div v-else class="text-subtitle-1" v-text="info.text" />
               </v-list-item-content>
             </v-list-item>
-            <v-divider :key="`info-divider-${i}`" />
+            <v-divider />
           </template>
         </v-list>
       </v-col>

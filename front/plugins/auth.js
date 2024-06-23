@@ -1,9 +1,10 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import { defineNuxtPlugin } from "#app";
 
 class Authentication {
-  constructor(ctx) {
-    this.store = ctx.store;
-    this.$axios = ctx.$axios;
+  constructor($store, $fetch) {
+    this.store = $store;
+    this.$fetch = $fetch;
   }
 
   get token() {
@@ -53,7 +54,8 @@ class Authentication {
 
   // ログアウト業務
   async logout() {
-    await this.$axios.$delete("/api/v1/auth_token", {
+    await this.$fetch("/api/v1/auth_token", {
+      method: "DELETE",
       validateStatus: (status) => this.resolveUnauthorized(status),
     });
     this.resetVuex();
@@ -82,6 +84,7 @@ class Authentication {
   }
 }
 
-export default ({ store, $axios }, inject) => {
-  inject("auth", new Authentication({ store, $axios }));
-};
+export default defineNuxtPlugin((nuxtApp) => {
+  const { $store, $fetch } = nuxtApp;
+  nuxtApp.provide("auth", new Authentication($store, $fetch));
+});
