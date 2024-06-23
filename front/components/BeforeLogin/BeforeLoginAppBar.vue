@@ -1,19 +1,10 @@
 <template>
-  <v-app-bar
-    app
-    :height="homeAppBarHeight"
-    color="white"
-  >
-    <nuxt-link
-      to="/"
-      class="text-decoration-none"
-    >
+  <v-app-bar app :height="homeAppBarHeight" color="white">
+    <nuxt-link to="/" class="text-decoration-none">
       <app-logo />
     </nuxt-link>
 
-    <app-title
-      class="hidden-mobile-and-down"
-    />
+    <app-title class="hidden-mobile-and-down" />
 
     <v-spacer />
 
@@ -24,10 +15,10 @@
 
 <script>
 export default {
-  data ({ $store }) {
+  data({ $store }) {
     return {
-      homeAppBarHeight: $store.state.styles.homeAppBarHeight.appBarHeight
-    }
-  }
-}
+      homeAppBarHeight: $store.state.styles.homeAppBarHeight.appBarHeight,
+    };
+  },
+};
 </script>
