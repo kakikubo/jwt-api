@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { defineNuxtPlugin } from "#app";
 
 class Authentication {
