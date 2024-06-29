@@ -1,20 +1,11 @@
 <template>
-  <v-avatar
-    color="black"
-    size="34"
-    class="my-app-log"
-  >
-    <span
-      class="white--text text-subtitle-2"
-    >
-      Biz
-    </span>
+  <v-avatar color="black" size="34" class="my-app-log">
+    <span class="white--text text-subtitle-2"> Biz </span>
   </v-avatar>
 </template>
 
 <script>
-export default {
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>

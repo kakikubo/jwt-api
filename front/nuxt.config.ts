@@ -1,3 +1,5 @@
+const mockServer = process.env.MOCK_SERVER === "1";
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -21,12 +23,12 @@ export default {
   css: ["~/assets/sass/main.scss"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    "plugins/auth",
-    "plugins/axios",
-    "plugins/my-inject",
-    "plugins/nuxt-client-init",
-  ],
+  // plugins: [
+  //   "plugins/auth",
+  //   "plugins/axios",
+  //   "plugins/my-inject",
+  //   "plugins/nuxt-client-init",
+  // ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -42,10 +44,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    "@nuxtjs/axios",
+    // "@nuxtjs/axios",
     // https://i18n.nuxtjs.org/
-    "@nuxtjs/i18n",
-    "@nuxtjs/proxy",
+    // "@nuxtjs/i18n",
+    // "@nuxtjs/proxy",
   ],
 
   runtimeConfig: {

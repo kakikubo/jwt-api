@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16.2-alpine
+        image: postgres:16.3-alpine
         ports:
           - 5432:5432
         env:
@@ -46,7 +46,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.3.0
+          ruby-version: 3.3.3
 
       #MySQLをインストール
       #- name: Install dependent libralies

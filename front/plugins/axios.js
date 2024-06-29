@@ -1,22 +1,26 @@
 export default ({ $axios, $auth, isDev }) => {
   // リクエストログ
-  $axios.onRequest((config) => {
-    config.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+  $fetch.interceptors.request.use((config) => {
+    config.headers.common["X-Requested-With"] = "XMLHttpRequest";
     if ($auth.token) {
-      config.headers.common.Authorization = `Bearer ${$auth.token}`
+      config.headers.common.Authorization = `Bearer ${$auth.token}`;
     }
     if (isDev) {
-      console.log(config)
+      console.log(config);
     }
-  })
+  });
   // レスポンスログ
-  $axios.onResponse((config) => {
-    if (isDev) {
-      console.log(config)
+  $fetch.interceptors.response.use(
+    (response) => {
+      if (isDev) {
+        console.log(response);
+      }
+      return response;
+    },
+    (error) => {
+      // エラーログ
+      console.log(error.response);
+      return Promise.reject(error);
     }
-  })
-  // エラーログ
-  $axios.onError((e) => {
-    console.log(e.response)
-  })
-}
+  );
+};
