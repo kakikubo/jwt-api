@@ -31,10 +31,13 @@ jobs:
     steps:
       - name: debug
         run: |
-          echo 'debug' ${{ github.event.pull_request.head.ref || github.ref_name }}
-          echo 'github.event.pull_request.head.ref' ${{ github.event.pull_request.head.ref }}
+          echo 'debug' "${REF_NAME}"
+          echo 'github.event.pull_request.head.ref' "${PR_HEAD_REF}"
           echo 'github.ref_name' ${{ github.ref_name }}
           echo 'github.event.pull_request.number' ${{ github.event.pull_request.number }}
+        env:
+          REF_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
       - name: checkout
         if: ${{ github.event_name != 'pull_request' }}
         uses: actions/checkout@v4
