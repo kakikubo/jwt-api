@@ -72,7 +72,7 @@ GEM
     bcrypt (3.1.19)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    builder (3.2.4)
+    builder (3.3.0)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -110,8 +110,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.2)
-    minitest (5.18.1)
-    minitest-reporters (1.6.0)
+    minitest (5.25.4)
+    minitest-reporters (1.7.1)
       ansi
       builder
       minitest (>= 5.0)
@@ -254,7 +254,7 @@ DEPENDENCIES
   hirb (~> 0.7.3)
   hirb-unicode-steakknife (~> 0.0.9)
   jwt (~> 2.10)
-  minitest-reporters (~> 1.6)
+  minitest-reporters (~> 1.7)
   pg (~> 1.5)
   puma (~> 6.6)
   rack-cors
