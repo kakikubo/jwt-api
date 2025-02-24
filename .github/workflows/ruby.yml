@@ -46,7 +46,7 @@ jobs:
       - name: Setup Ruby version
         uses: ruby/setup-ruby@master
         with:
-          ruby-version: 3.2.2
+          ruby-version: .tool-versions
 
       #MySQLをインストール
       #- name: Install dependent libralies
