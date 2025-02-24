@@ -1058,10 +1058,10 @@
     pathe "^1.1.0"
     vite-plugin-eslint "^1.8.1"
 
-"@nuxtjs/i18n@^9.2.0":
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/i18n/-/i18n-9.2.0.tgz#b1e88fd48d91db69d7fb4ecd7c4c86c5e446f0d1"
-  integrity sha512-R7azgNji8jIZdimlylK1CU4plO1OjRPZduTyjS9SHHasMCzxrPM+LBJLRzjt9NUNatquLeCcVfHAYvxIxPHCmg==
+"@nuxtjs/i18n@^9.2.1":
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/i18n/-/i18n-9.2.1.tgz#298511bb983ee4fcc0bdc1767cdec3b8af0735a5"
+  integrity sha512-rSIZ0p97A/II5P1Rf5f7oboWvViQKU23rP4iOD0KrNpIDnmO796C1g+4ifTpMo38SskwVxdGVWqvcuxOJ/XmyA==
   dependencies:
     "@intlify/h3" "^0.6.1"
     "@intlify/shared" "^10.0.5"
@@ -2008,7 +2008,7 @@ acorn-walk@^8.2.0:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-8.2.0.tgz#741210f2e2426454508853a2f44d0ab83b7f69c1"
   integrity sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==
 
-acorn@8.14.0, acorn@^8.14.0, acorn@^8.4.1, acorn@^8.6.0, acorn@^8.8.2, acorn@^8.9.0:
+acorn@8.14.0, acorn@^8.14.0, acorn@^8.4.1, acorn@^8.5.0, acorn@^8.6.0, acorn@^8.8.2, acorn@^8.9.0:
   version "8.14.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.14.0.tgz#063e2c70cac5fb4f6467f0b11152e04c682795b0"
   integrity sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==
