@@ -29,6 +29,6 @@
     "@nuxtjs/vuetify": "^1.12.3",
     "eslint": "^8.44.0",
     "eslint-plugin-nuxt": "^4.0.0",
-    "eslint-plugin-vue": "^9.32.0"
+    "eslint-plugin-vue": "^9.33.0"
   }
 }
