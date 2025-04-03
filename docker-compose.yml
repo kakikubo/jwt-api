@@ -1,12 +1,10 @@
 # composeファイルのバージョン指定
 # https://docs.docker.com/compose/compose-file/compose-versioning/
-version: "3.8"
-
 services:
   # サービス（コンテナ）
   db:
     # ベースイメージを定義
-    image: postgres:15.0-alpine
+    image: postgres:17.0-alpine
     environment:
       # OSのタイムゾーン
       TZ: UTC

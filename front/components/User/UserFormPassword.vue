@@ -20,45 +20,45 @@ export default {
   props: {
     password: {
       type: String,
-      default: ''
+      default: "",
     },
     setValidation: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
-      show: false
-    }
+      show: false,
+    };
   },
   computed: {
     setPassword: {
-      get () {
-        return this.password
+      get() {
+        return this.password;
       },
-      set (newValue) {
-        return this.$emit('update:password', newValue)
-      }
+      set(newValue) {
+        return this.$emit("update:password", newValue);
+      },
     },
-    form () {
-      const min = '8文字以上'
-      const msg = `${min}。半角英数字・ハイフン・アンダーバーが使えます`
+    form() {
+      const min = "8文字以上";
+      const msg = `${min}。半角英数字・ハイフン・アンダーバーが使えます`;
       // ログインページ=入力必須
       // 会員登録ページ=入力必須、8文字以上、72文字以下、書式チェック
-      const required = v => !!v || ''
-      const format = v => /^[\w-]{8,72}$/.test(v) || msg
+      const required = (v) => !!v || "";
+      const format = (v) => /^[\w-]{8,72}$/.test(v) || msg;
 
-      const rules = this.setValidation ? [format] : [required]
-      const hint = this.setValidsation ? msg : undefined
-      const placeholder = this.setValidation ? min : undefined
-      return { rules, hint, placeholder }
+      const rules = this.setValidation ? [format] : [required];
+      const hint = this.setValidsation ? msg : undefined;
+      const placeholder = this.setValidation ? min : undefined;
+      return { rules, hint, placeholder };
     },
-    toggle () {
-      const icon = this.show ? 'mdi-eye' : 'mdi-eye-off'
-      const type = this.show ? 'text' : 'password'
-      return { icon, type }
-    }
-  }
-}
+    toggle() {
+      const icon = this.show ? "mdi-eye" : "mdi-eye-off";
+      const type = this.show ? "text" : "password";
+      return { icon, type };
+    },
+  },
+};
 </script>

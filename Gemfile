@@ -40,9 +40,11 @@ gem 'bootsnap', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 # コンソールの出力結果を見やすく表示する
-gem 'hirb', '~> 0.7.3'
+# FIXME: `NameError: uninitialized constant RuboCop::Cop::Rails::RedundantActiveRecordAllMethod::AllowedReceivers`
+# というバグが発生する為、rubocopのバージョンを1.57以上にする必要があるが、hirbが対応していない。
+# gem 'hirb'
 # Hirbの文字列補正を行う(多言語対応版)
-gem 'hirb-unicode-steakknife', '~> 0.0.9'
+# gem 'hirb-unicode-steakknife'
 # jwt Doc: https://rubygems.org/gems/jwt
 gem 'jwt', '~> 2.10'
 
@@ -50,9 +52,10 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
-  gem 'rubocop'
+  gem 'rubocop', '~> 1.58'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development do

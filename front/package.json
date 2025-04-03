@@ -2,11 +2,15 @@
   "name": "app",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.12.2"
+  },
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "dev": "NODE_OPTIONS='--openssl-legacy-provider' nuxi dev",
+    "dev:mock": "MOCK_SERVER=1 yarn dev",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' nuxi build",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' nuxi start",
+    "generate": "NODE_OPTIONS='--openssl-legacy-provider' nuxi generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "yarn lint:js",
     "lintfix": "yarn lint:js --fix"
@@ -27,7 +31,7 @@
     "@nuxtjs/eslint-config": "^12.0.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "@nuxtjs/vuetify": "^1.12.3",
-    "eslint": "^8.44.0",
+    "eslint": "^9.0.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-vue": "^9.33.0"
   }

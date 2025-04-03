@@ -109,7 +109,7 @@ module UserAuth
         verify_iss: verify_issuer?,   # payloadとissの一致を検証するか
         verify_aud: verify_audience?, # payloadとaudの一致を検証するか
         verify_sub: verify_subject?,  # payloadとsubの一致を検証するか
-        algorithm:          # decode時のアルゴリズム
+        algorithm: # decode時のアルゴリズム
       }
     end
   end

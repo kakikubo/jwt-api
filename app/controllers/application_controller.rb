@@ -17,7 +17,7 @@ class ApplicationController < ActionController::API
   # XMLHttpRequestでない場合は403エラーを返す
   def xhr_request?
     # リクエストヘッダ X-Requested-With: 'XMLHttpRequest' の存在を判定
-    return if request.xhr?
+    return false if request.xhr?
 
     render status: :forbidden, json: { status: 403, error: 'Forbidden' }
   end
@@ -30,11 +30,11 @@ class ApplicationController < ActionController::API
   # リダイレクト条件に一致した場合はtrueを返す
   def redirect?
     redirect_domain = 'herokuapp.com'
-    Rails.env.production? && ENV['BASE_URL'] && request.host.include?(redirect_domain)
+    Rails.env.production? && ENV.fetch('BASE_URL', nil) && request.host.include?(redirect_domain)
   end
 
   # 301リダイレクトを行う
   def moved_permanently
-    redirect_to "#{ENV['BASE_URL']}#{request.path}", status: 301
+    redirect_to "#{ENV.fetch('BASE_URL', nil)}#{request.path}", status: 301
   end
 end
