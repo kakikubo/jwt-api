@@ -11,29 +11,18 @@ jobs:
       - name: Slack Notify
         uses: slackapi/slack-github-action@v2.0.0
         with:
-          channel-id: "C04NTKALV63"
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
-            {
-               "attachments": [
-                 {
-                   "blocks": [
-                     {
-                       "type": "header",
-                       "text": {
-                         "type": "plain_text",
-                         "text": "Message Header",
-                         "emoji": true
-                       }
-                     },
-                     {
-                       "type": "section",
-                       "text": {
-                         "type": "mrkdwn", "text": "Hello jwt-api :space_invader:"
-                       }
-                     }
-                   ]
-                 }
-               ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+            channel: C04NTKALV63
+            attachments:
+              - blocks:
+                  - type: header
+                    text:
+                      type: plain_text
+                      text: "Message Header"
+                      emoji: true
+                  - type: section
+                    text:
+                      type: mrkdwn
+                      text: "Hello jwt-api :space_invader:"

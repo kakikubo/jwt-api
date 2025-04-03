@@ -8,6 +8,11 @@ ja:
         activated: アクティブフラグ
         admin: 管理者フラグ
     errors:
+      models:
+        user:
+          attributes:
+            password:
+              password_too_long: 'は72文字以内で入力してください'
       messages:
         password_too_long: 'は72文字以内で入力してください'
         record_invalid: 'バリデーションに失敗しました: %{errors}'

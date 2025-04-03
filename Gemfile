@@ -6,13 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.4.1'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.0.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.5'
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 6.6'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -46,7 +46,7 @@ gem 'rack-cors'
 # Hirbの文字列補正を行う(多言語対応版)
 # gem 'hirb-unicode-steakknife'
 # jwt Doc: https://rubygems.org/gems/jwt
-gem 'jwt', '~> 2.7'
+gem 'jwt', '~> 2.10'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -65,7 +65,7 @@ end
 
 group :test do
   # テスト結果色付け Doc: https://github.com/kern/minitest-reporters
-  gem 'minitest-reporters', '~> 1.6'
+  gem 'minitest-reporters', '~> 1.7'
   gem 'simplecov', require: false
   gem 'simplecov-cobertura'
 end
