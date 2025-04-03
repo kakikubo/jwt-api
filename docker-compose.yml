@@ -4,7 +4,7 @@ services:
   # サービス（コンテナ）
   db:
     # ベースイメージを定義
-    image: postgres:17.0-alpine
+    image: postgres:17.4-alpine
     environment:
       # OSのタイムゾーン
       TZ: UTC
