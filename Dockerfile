@@ -1,6 +1,6 @@
 # ベースイメージを指定する
 # FROM ベースイメージ:タグ
-FROM ruby:3.4.1-alpine
+FROM ruby:3.4.4-alpine
 
 # Dockerfile内で使用する変数を定義
 # appが入る予定
@@ -38,6 +38,7 @@ RUN apk update && \
     apk upgrade && \
     apk add --no-cache ${RUNTIME_PACKAGES} && \
     apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
+    gem install bundler --no-document && \
     bundle config set force_ruby_platform true && \
     bundle install -j4 && \
     apk del build-dependencies
