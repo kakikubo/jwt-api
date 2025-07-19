@@ -16,7 +16,7 @@
     "lintfix": "yarn lint:js --fix"
   },
   "dependencies": {
-    "@nuxtjs/i18n": "^9.0.0",
+    "@nuxtjs/i18n": "^10.0.0",
     "core-js": "^3.33.3",
     "jwt-decode": "^4.0.0",
     "nuxt": "^3.0.0",
